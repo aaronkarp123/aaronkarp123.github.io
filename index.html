@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>three.js canvas - interactive - cubes</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<style>
+			body {
+				font-family: Helvetica Neue;
+				background-color: #0a0a0a;
+				margin: 0px;
+				overflow: hidden;
+			}
+		</style>
+	</head>
+	<link rel="stylesheet" type="text/css" href="stylesheet.css">
+	<body>
+		<div id="overlay-back"></div> 
+		<div class="wrapper" style="text-align: center;">
+			<button class="button width-150px" id="startButtonId" style="position:absolute; top:70%; left:48%; transform: rotate(3deg);">Enter </button>
+		</div>
+		<div id="simplified-back">
+			<div id="text">
+			<span style="font-weight:bold">Music<br></span>
+			<a href="https://soundcloud.com/aaronkarp/introduction" target="_blank" style="color:#ff3333">Introduction (Fixed Media)</a>
+			<br>
+			<a href="https://youtu.be/1gMaHXmhG6U" target="_blank" style="color:#ff3333">Restrained Form (Installation)</a>
+			<br> <br>
+			<span style="font-weight:bold">Computer Science<br></span>
+			<a href="https://www.youtube.com/watch?v=gminuhZIVOo&feature=youtu.be" target="_blank" style="color:#00ff00">HaptEQ: A collaborative tool for visually impaired audio producers</a>
+			<br>
+			<a href="https://dl.acm.org/citation.cfm?id=2982196" target="_blank" style="color:#00ff00">An Approach to Audio-Only Editing for Visually Impaired Seniors</a>
+			<br> <br>
+			<span style="font-weight:bold">Other<br></span>
+			<a href="http://www.aaronmkarp.com/about/" target="_blank" style="color:#00aaff">About Me</a>
+			<br>
+			<a href="https://github.com/aaronkarp123/visuals" target="_blank" style="color:#00aaff">Live Concert Graphics</a>
+			<br> <br>
+			</div>
+		</div>
+		<script src="build/three.js"></script>
+
+		<script src="js/renderers/Projector.js"></script>
+		<script src="js/renderers/CanvasRenderer.js"></script>
+
+		<script>
+
+			var container, stats;
+			var camera, scene, renderer;
+			var particleMaterial;
+
+			var raycaster;
+			var mouse;
+
+			var objects = [];
+			var linked_objects = [];
+			var axes = [];
+
+			init();
+			animate();
+
+			var colors, names;
+			var previous_point;
+			var back_color;
+
+			var camera_distance;
+			var trackballControls;
+			var runAnim = false;
+			var not_faded = true;
+			var simplified_menu = false;
+
+			 // Buttons startButton and resetButton
+			 var startButton;
+
+			function parseHexColor(c) {
+			  var j = {};
+
+			  var s = c.replace(/^#([0-9A-Fa-f]{2})([0-9A-Fa-f]{2})([0-9A-Fa-f]{2})$/, function(_, r, g, b) {
+			    j.red = parseInt(r, 16);
+			    j.green = parseInt(g, 16);
+			    j.blue = parseInt(b, 16);
+
+			    return "";
+			  });
+
+			  if(s.length == 0) {
+			    return j;
+			  }
+			};
+
+			function colorDif(a, b) {
+				var a = parseHexColor(a);
+  				var b = parseHexColor(b);
+  				return Math.abs(a.red - b.red) + Math.abs(a.green - b.green) + Math.abs(a.blue - b.blue);
+			}
+
+			function fadeout(element, initop) {
+			    var op = initop;  // initial opacity
+			    var timer = setInterval(function () {
+			        if (op <= 0.01){
+			            clearInterval(timer);
+			            element.style.display = 'none';
+			        }
+			        element.style.opacity = op;
+			        element.style.filter = 'alpha(opacity=' + op * 100 + ")";
+			        op -= op * 0.1;
+			    }, 50);
+			}
+
+			function unfade(element) {
+			    var op = 0.01;  // initial opacity
+			    element.style.display = 'block';
+			    var timer = setInterval(function () {
+			        if (op >= 0.8){
+			            clearInterval(timer);
+			        }
+			        element.style.opacity = op;
+			        element.style.filter = 'alpha(opacity=' + op * 100 + ")";
+			        op += op * 0.02;
+			    }, 10);
+			}
+
+			function init() {
+
+				container = document.createElement( 'div' );
+				document.body.appendChild( container );
+
+				startButton = document.getElementById( 'startButtonId' )
+				startButton.onclick = function StartAnimation() {
+					unfade(info6);
+					unfade(info5);
+					fadeout(document.getElementById('overlay-back'), 1.0); 
+					runAnim = true;
+					theta_dif = 0.1;
+					rotate_speed = 0; //Math.PI / 90;
+					animate();
+					var elem = document.getElementById('startButtonId');
+    				elem.parentNode.removeChild(elem);
+    				var divs = document.getElementsByTagName("div");
+					for(var i = 0; i < divs.length; i++){
+					   divs[i].style.display = "block";
+					}
+				}
+
+				previous_point = null;
+
+				var info = document.createElement( 'div' );
+				info.style.position = 'absolute';
+				info.style.top = '15px';
+				info.style.width = '100%';
+				info.style.textAlign = 'left'
+				info.style.paddingLeft = "20px";
+				info.style.display = "none";
+				info.innerHTML = '<font color="fafafa">Aaron Karp</font>';
+				info2 = document.createElement( 'div' );
+				info2.style.position = 'absolute';
+				info2.style.top = '35px';
+				info2.style.width = '100%';
+				info2.style.textAlign = 'left';
+				info2.style.paddingLeft = "20px";
+				info2.style.opacity = 0.5;
+				info2.style.display = "none";
+				info2.innerHTML = '<font color="ff3333">Music </font>';
+				info3 = document.createElement( 'div' );
+				info3.style.position = 'absolute';
+				info3.style.top = '55px';
+				info3.style.width = '100%';
+				info3.style.textAlign = 'left';
+				info3.style.paddingLeft = "20px";
+				info3.style.opacity = 0.5;
+				info3.style.display = "none";
+				info3.innerHTML = '<font color="00ff00">Computer Science </font>';
+				info4 = document.createElement( 'div' );
+				info4.style.position = 'absolute';
+				info4.style.top = '75px';
+				info4.style.width = '100%';
+				info4.style.textAlign = 'left';
+				info4.style.paddingLeft = "20px";
+				info4.style.opacity = 0.5;
+				info4.style.display = "none";
+				info4.innerHTML = '<font color="00aaff">Other </font>';
+
+				info5 = document.createElement( 'div' );
+				info5.style.position = 'absolute';
+				info5.style.bottom = '18px';
+				info5.style.width = '100%';
+				info5.style.textAlign = 'left';
+				info5.style.paddingLeft = "20px";
+				info5.style.opacity = 0.5;
+				info5.style.display = "none";
+				info5.innerHTML = '<button style="background-color:#303030; color:white; border:none; font-size:15px; font-weight:100;">Simplified</button>';
+				info5.onclick = function simplifiedMenu() {
+					simplified_menu = !simplified_menu;
+					var elem = document.getElementById('simplified-back');
+					if (simplified_menu){
+						elem.style.display = "block";
+						unfade(elem);
+					}
+					else{
+						fadeout(elem, 0.8);
+					}
+				}
+
+				var elem = document.getElementById('simplified-back');
+				fadeout(elem, 0.1);
+
+				info6 = document.createElement( 'div' );
+				info6.style.position = 'absolute';
+				info6.style.top = '85%';
+				info6.style.width = '100%';
+				info6.style.textAlign = 'center';
+				info6.style.opacity = 0.5;
+				info6.style.display = "none";
+				info6.style.font= "14px arial,serif";
+				info6.innerHTML = '<font color="fafafa">^<br />Scroll to Zoom</font>';
+
+				container.appendChild( info );
+				container.appendChild( info2 );
+				container.appendChild( info3 );
+				container.appendChild( info4 );
+				container.appendChild( info5 );
+				container.appendChild( info6 );
+
+				back_color = 0x0a0a0a;
+
+				camera_distance = 8;
+
+				camera = new THREE.PerspectiveCamera( camera_distance, window.innerWidth / window.innerHeight, 1, 10000 );
+				camera.setFocalLength(camera_distance);
+				camera.position.set( 0, 300, 500 );
+
+				scene = new THREE.Scene();
+
+				//var light = new THREE.AmbientLight( 0xffffff ); // soft white light
+				//scene.add( light );
+
+				var geometry = new THREE.BoxGeometry( 100, 100, 100 );
+
+				//colors = [0xff5940, 0xff5941, 0xc390ff, 0xc391ff, 0xccff40, 0xccff41];
+				colors = [0xff3333, 0xff3334, 0x00ff00, 0x00ff01, 0x00aaff, 0x01aaff];
+				other_colors = [0xffff00, 0x00ffff, 0xff00ff];
+				names = ['https://soundcloud.com/aaronkarp/introduction', 'https://youtu.be/1gMaHXmhG6U', 'https://www.youtube.com/watch?v=gminuhZIVOo&feature=youtu.be', 'https://dl.acm.org/citation.cfm?id=2982196', 'http://www.aaronmkarp.com/about/', 'https://github.com/aaronkarp123/visuals'];
+
+				for ( var i = 0; i < colors.length; i ++ ) {
+					var color0 = colors[i % colors.length];
+					var object = new THREE.Mesh( geometry, new THREE.MeshBasicMaterial( {color: color0, opacity: 0.5 } ) );
+					object.position.x = Math.random() * 800 - 400;
+					object.position.y = Math.random() * 800 - 400;
+					object.position.z = Math.random() * 800 - 400;
+
+					object.scale.x = Math.random() * 1;
+					object.scale.y = Math.random() * 1;
+					object.scale.z = Math.random() * 1;
+
+					object.rotation.x = Math.random() * 2 * Math.PI;
+					object.rotation.y = Math.random() * 2 * Math.PI;
+					object.rotation.z = Math.random() * 2 * Math.PI;
+
+					scene.add( object );
+
+					objects.push( object );
+					linked_objects.push (object);
+					axes.push(new THREE.Vector3(Math.random(),Math.random(),1));
+
+				}
+
+				for ( var i = 0; i < colors.length*3; i ++ ) {
+					var color0 = Math.random() * 0xFFFFFF;//other_colors[Math.floor(Math.random()*other_colors.length)];
+					var object = new THREE.Mesh( geometry, new THREE.MeshBasicMaterial( {color: color0, opacity: 0.5 } ) );
+					object.position.x = Math.random() * 800 - 400;
+					object.position.y = Math.random() * 800 - 400;
+					object.position.z = Math.random() * 800 - 400;
+
+					object.scale.x = Math.random() * 1;
+					object.scale.y = Math.random() * 1;
+					object.scale.z = Math.random() * 1;
+
+					object.rotation.x = Math.random() * 2 * Math.PI;
+					object.rotation.y = Math.random() * 2 * Math.PI;
+					object.rotation.z = Math.random() * 2 * Math.PI;
+
+					scene.add( object );
+
+					objects.push( object );
+
+				}
+
+				var PI2 = Math.PI * 2;
+				particleMaterial = new THREE.SpriteCanvasMaterial( {
+
+					color: 0xFF0000, opacity:0.8,
+					program: function ( context ) {
+
+						context.beginPath();
+						context.arc( 0, 0, 0.5, 0, PI2, true );
+						context.fill();
+
+					}
+
+				} );
+
+				raycaster = new THREE.Raycaster();
+				mouse = new THREE.Vector2();
+
+				renderer = new THREE.CanvasRenderer();
+				renderer.setClearColor( back_color );
+				renderer.setPixelRatio( window.devicePixelRatio );
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				container.appendChild( renderer.domElement );
+
+				//stats = new Stats();
+				//container.appendChild( stats.dom );
+
+				document.addEventListener( 'mousedown', onDocumentMouseDown, false );
+				document.addEventListener( 'touchstart', onDocumentTouchStart, false );
+				document.addEventListener( 'mousewheel', onDocumentMouseWheel, false );
+
+				window.addEventListener( 'resize', onWindowResize, false );
+
+			}
+
+			function onWindowResize() {
+
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+
+				renderer.setSize( window.innerWidth, window.innerHeight );
+
+			}
+
+			function onDocumentTouchStart( event ) {
+
+				event.preventDefault();
+
+				event.clientX = event.touches[0].clientX;
+				event.clientY = event.touches[0].clientY;
+				onDocumentMouseDown( event );
+
+			}
+
+			function onDocumentMouseWheel( event ) {
+
+				event.preventDefault();
+				var fovMAX = 160;
+			    var fovMIN = 1;
+
+			    camera_distance -= event.wheelDeltaY * 0.002;
+			    camera_distance = Math.max( Math.min( camera_distance, fovMAX ), fovMIN );
+			    camera.setFocalLength(camera_distance);
+
+			    //render();
+
+			}
+
+			function onDocumentMouseDown( event ) {
+				if (!runAnim)
+					return;
+
+				event.preventDefault();
+
+				mouse.x = ( event.clientX / renderer.domElement.clientWidth ) * 2 - 1;
+				mouse.y = - ( event.clientY / renderer.domElement.clientHeight ) * 2 + 1;
+
+				raycaster.setFromCamera( mouse, camera );
+
+				var intersects = raycaster.intersectObjects( objects );
+
+				if ( intersects.length > 0 ) {
+
+					if (colors.includes(intersects[ 0 ].object.material.color.getHex())){
+						var win = window.open(names[colors.indexOf(intersects[ 0 ].object.material.color.getHex())], '_blank');
+  						win.focus();
+						}
+					else{
+						intersects[ 0 ].object.material.color.setHex(0x0f0f0f);
+						index = objects.indexOf(intersects[0].object)
+						//objects.splice(index, 1);
+						//scene.remove( intersects[0].object );
+  					}
+					var particle = new THREE.Sprite( particleMaterial );
+					particle.position.copy( intersects[ 0 ].point );
+					particle.scale.x = particle.scale.y = 4;
+					scene.add( particle );
+					if (previous_point != null){  					
+						var material = new THREE.LineBasicMaterial( { color: 0xfafafa} );
+						var geometry = new THREE.Geometry();
+						geometry.vertices.push(previous_point);
+						geometry.vertices.push(intersects[ 0 ].point);
+						var line = new THREE.Line( geometry, material );
+						scene.add( line );
+					}
+					previous_point =  intersects[ 0 ].point;
+
+
+				}
+
+				/*
+				// Parse all the faces
+				for ( var i in intersects ) {
+
+					intersects[ i ].face.material[ 0 ].color.setHex( Math.random() * 0xffffff | 0x80000000 );
+
+				}
+				*/
+			}
+
+			var rotWorldMatrix;
+			// Rotate an object around an arbitrary axis in world space       
+			function rotateAroundWorldAxis(object, axis, radians) {
+			    rotWorldMatrix = new THREE.Matrix4();
+			    rotWorldMatrix.makeRotationAxis(axis.normalize(), radians);
+
+			    // old code for Three.JS pre r54:
+			    //  rotWorldMatrix.multiply(object.matrix);
+			    // new code for Three.JS r55+:
+			    rotWorldMatrix.multiply(object.matrix);                // pre-multiply
+
+			    object.matrix = rotWorldMatrix;
+
+			    // old code for Three.js pre r49:
+			    // object.rotation.getRotationFromMatrix(object.matrix, object.scale);
+			    // old code for Three.js pre r59:
+			    // object.rotation.setEulerFromRotationMatrix(object.matrix);
+			    // code for r59+:
+			    object.rotation.setFromRotationMatrix(object.matrix);
+			}
+
+			var rotate_speed = Math.PI / 90;
+
+			function animate() {
+				if (!runAnim){
+					theta_dif = 0;
+					//rotate_speed = Math.PI / 220;
+				}
+				/*
+				for (var i = 0; i < linked_objects.length; i ++){
+					rotateAroundWorldAxis(linked_objects[i], axes[i], rotate_speed);
+					//linked_objects[i].material.color.setHex(linked_objects[i].material.color.getHex() + 0x0000f0);
+				}*/
+				requestAnimationFrame( animate );
+
+				render();
+
+			}
+
+			var radius = 600;
+			var theta = 0;
+			var theta_dif = 0.1;
+
+			function render() {
+
+
+				theta += theta_dif;
+
+				if (not_faded && theta > 60){
+					fadeout(info6, 0.6); 
+					not_faded = false;
+				}
+
+				camera.position.x = radius * Math.sin( THREE.Math.degToRad( theta ) );
+				camera.position.y = radius * Math.sin( THREE.Math.degToRad( theta ) );
+				camera.position.z = radius * Math.cos( THREE.Math.degToRad( theta ) );
+				camera.lookAt( scene.position );
+
+				renderer.getContext().canvas.getContext("2d").clearRect(0, 0, renderer.getContext().canvas.width, renderer.getContext().canvas.height);
+				renderer.render( scene, camera );
+
+
+			}
+
+		</script>
+
+	</body>
+</html>
