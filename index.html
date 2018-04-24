@@ -4,6 +4,7 @@
 		<title>Aaron Karp</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<style type="text/css">a {text-decoration: none}</style>
 		<style>
 			body {
 				font-family: Helvetica Neue;
@@ -12,29 +13,32 @@
 				overflow: hidden;
 			}
 		</style>
+		<style>
+			a:hover, a:active {color: #ffffff;}
+			a {color: #dfdfdf;}
+		</style>
 	</head>
 	<link rel="stylesheet" type="text/css" href="stylesheet.css">
 	<body>
 		<div id="overlay-back"></div> 
 		<div class="wrapper" style="text-align: center;">
 			<button class="button width-150px" id="startButtonId" style="position:absolute; top:70%; left:48%; transform: rotate(3deg);">Enter </button>
-		</div>
 		<div id="simplified-back"">
 			<div id="text">
 			<span style="font-weight:bold">Music<br></span>
-			<a href="https://soundcloud.com/aaronkarp/introduction" target="_blank" style="color:#ff3333">Introduction (Fixed Media)</a>
+			<a href="https://soundcloud.com/aaronkarp/introduction" target="_blank">Introduction (Fixed Media)</a>
 			<br>
-			<a href="https://youtu.be/1gMaHXmhG6U" target="_blank" style="color:#ff3333">Restrained Form (Installation)</a>
+			<a href="https://youtu.be/1gMaHXmhG6U" target="_blank">Restrained Form (Installation)</a>
 			<br> <br>
 			<span style="font-weight:bold">Computer Science<br></span>
-			<a href="https://www.youtube.com/watch?v=gminuhZIVOo&feature=youtu.be" target="_blank" style="color:#00ff00">HaptEQ: A collaborative tool for visually impaired audio producers</a>
+			<a href="https://www.youtube.com/watch?v=gminuhZIVOo&feature=youtu.be" target="_blank">HaptEQ: A collaborative tool for visually impaired audio producers</a>
 			<br>
-			<a href="https://dl.acm.org/citation.cfm?id=2982196" target="_blank" style="color:#00ff00">An Approach to Audio-Only Editing for Visually Impaired Seniors</a>
+			<a href="https://dl.acm.org/citation.cfm?id=2982196" target="_blank">An Approach to Audio-Only Editing for Visually Impaired Seniors</a>
 			<br> <br>
 			<span style="font-weight:bold">Other<br></span>
-			<a href="about.html" target="_blank" style="color:#00aaff">About Me</a>
+			<a href="about.html" target="_blank">About Me</a>
 			<br>
-			<a href="https://github.com/aaronkarp123/visuals" target="_blank" style="color:#00aaff">Live Concert Graphics</a>
+			<a href="https://github.com/aaronkarp123/visuals" target="_blank">Live Concert Graphics</a>
 			<br> <br>
 			</div>
 		</div>
@@ -162,7 +166,7 @@
 				info2.style.paddingLeft = "20px";
 				info2.style.opacity = 0.5;
 				info2.style.display = "none";
-				info2.innerHTML = '<font color="ff3333">Music </font>';
+				info2.innerHTML = '<span class="dot" style="background-color: #ff3333;"></span><font color="dfdfdf"> Music </font>';
 				info3 = document.createElement( 'div' );
 				info3.style.position = 'absolute';
 				info3.style.top = '55px';
@@ -171,7 +175,7 @@
 				info3.style.paddingLeft = "20px";
 				info3.style.opacity = 0.5;
 				info3.style.display = "none";
-				info3.innerHTML = '<font color="00ff00">Computer Science </font>';
+				info3.innerHTML = '<span class="dot" style="background-color: #00ff00;"></span><font color="dfdfdf"> Computer Science </font>';
 				info4 = document.createElement( 'div' );
 				info4.style.position = 'absolute';
 				info4.style.top = '75px';
@@ -180,7 +184,7 @@
 				info4.style.paddingLeft = "20px";
 				info4.style.opacity = 0.5;
 				info4.style.display = "none";
-				info4.innerHTML = '<font color="00aaff">Other </font>';
+				info4.innerHTML = '<span class="dot" style="background-color: #00aaff;"></span><font color="dfdfdf"> Other </font>';
 
 				info5 = document.createElement( 'div' );
 				info5.style.position = 'absolute';
