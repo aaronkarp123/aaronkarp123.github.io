@@ -19,7 +19,7 @@
 		<div class="wrapper" style="text-align: center;">
 			<button class="button width-150px" id="startButtonId" style="position:absolute; top:70%; left:48%; transform: rotate(3deg);">Enter </button>
 		</div>
-		<div id="simplified-back">
+		<div id="simplified-back"">
 			<div id="text">
 			<span style="font-weight:bold">Music<br></span>
 			<a href="https://soundcloud.com/aaronkarp/introduction" target="_blank" style="color:#ff3333">Introduction (Fixed Media)</a>
@@ -94,7 +94,7 @@
   				return Math.abs(a.red - b.red) + Math.abs(a.green - b.green) + Math.abs(a.blue - b.blue);
 			}
 
-			function fadeout(element, initop) {
+			function fadeout(element, initop, rate) {
 			    var op = initop;  // initial opacity
 			    var timer = setInterval(function () {
 			        if (op <= 0.01){
@@ -103,7 +103,7 @@
 			        }
 			        element.style.opacity = op;
 			        element.style.filter = 'alpha(opacity=' + op * 100 + ")";
-			        op -= op * 0.1;
+			        op -= op * rate;
 			    }, 50);
 			}
 
@@ -129,7 +129,7 @@
 				startButton.onclick = function StartAnimation() {
 					unfade(info6, 0.02);
 					unfade(info5, 0.02);
-					fadeout(document.getElementById('overlay-back'), 1.0); 
+					fadeout(document.getElementById('overlay-back'), 1.0, 0.1); 
 					runAnim = true;
 					theta_dif = 0.1;
 					rotate_speed = 0; //Math.PI / 90;
@@ -197,12 +197,9 @@
 						unfade(elem, 0.08);
 					}
 					else{
-						fadeout(elem, elem.style.opacity);
+						fadeout(elem, elem.style.opacity, 0.15);
 					}
 				}
-
-				var elem = document.getElementById('simplified-back');
-				fadeout(elem, 0.1);
 
 				info6 = document.createElement( 'div' );
 				info6.style.position = 'absolute';
@@ -316,6 +313,9 @@
 				document.addEventListener( 'mousewheel', onDocumentMouseWheel, false );
 
 				window.addEventListener( 'resize', onWindowResize, false );
+
+				var elem = document.getElementById('simplified-back');
+				fadeout(elem, 0.2, 0.2);
 
 			}
 
@@ -453,7 +453,7 @@
 				theta += theta_dif;
 
 				if (not_faded && theta > 60){
-					fadeout(info6, 0.6); 
+					fadeout(info6, 0.6, 0.1); 
 					not_faded = false;
 				}
 
