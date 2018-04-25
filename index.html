@@ -190,7 +190,7 @@
 				info5 = document.createElement( 'div' );
 				info5.style.position = 'absolute';
 				info5.style.bottom = '18px';
-				info5.style.width = '100%';
+				info5.style.width = '8%';
 				info5.style.textAlign = 'left';
 				info5.style.paddingLeft = "20px";
 				info5.style.opacity = 0.5;
@@ -202,11 +202,13 @@
 					if (simplified_menu){
 						elem.style.display = "block";
 						info5.innerHTML = '<button style="background-color:#303030; color:white; border:none; font-size:15px; font-weight:100;">Close Menu</button>'
-						unfade(elem, 0.08);
+						unfade(elem, 0.2);
 					}
 					else{
 						info5.innerHTML = '<button style="background-color:#303030; color:white; border:none; font-size:15px; font-weight:100;">Simplified</button>';
-						fadeout(elem, elem.style.opacity, 0.15);
+						//fadeout(elem, elem.style.opacity, 0.15);
+						elem.style.opacity = 0.0;
+						elem.style.display = "none";
 					}
 				}
 
