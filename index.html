@@ -17,6 +17,7 @@
 			a:hover, a:active {color: #ffffff;}
 			a {color: #dfdfdf;}
 		</style>
+		<link rel="shortcut icon" href="files/Favicon.png" />
 	</head>
 	<link rel="stylesheet" type="text/css" href="stylesheet.css">
 	<body>
@@ -200,9 +201,11 @@
 					var elem = document.getElementById('simplified-back');
 					if (simplified_menu){
 						elem.style.display = "block";
+						info5.innerHTML = '<button style="background-color:#303030; color:white; border:none; font-size:15px; font-weight:100;">Close Menu</button>'
 						unfade(elem, 0.08);
 					}
 					else{
+						info5.innerHTML = '<button style="background-color:#303030; color:white; border:none; font-size:15px; font-weight:100;">Simplified</button>';
 						fadeout(elem, elem.style.opacity, 0.15);
 					}
 				}
