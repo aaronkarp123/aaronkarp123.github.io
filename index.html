@@ -26,23 +26,6 @@
 		<div class="wrapper" style="text-align: center;">
 			<button class="button width-150px" id="startButtonId" style="position:absolute; top:70%; left:48%; transform: rotate(3deg);">Enter </button>
 		<div id="simplified-back"">
-			<div id="text">
-			<span style="font-weight:bold">Music<br></span>
-			<a href="https://soundcloud.com/aaronkarp/introduction" target="_blank">Introduction (Fixed Media)</a>
-			<br>
-			<a href="https://youtu.be/1gMaHXmhG6U" target="_blank">Restrained Form (Installation)</a>
-			<br> <br>
-			<span style="font-weight:bold">Computer Science<br></span>
-			<a href="https://www.youtube.com/watch?v=gminuhZIVOo&feature=youtu.be" target="_blank">HaptEQ: A collaborative tool for visually impaired audio producers</a>
-			<br>
-			<a href="https://dl.acm.org/citation.cfm?id=2982196" target="_blank">An Approach to Audio-Only Editing for Visually Impaired Seniors</a>
-			<br> <br>
-			<span style="font-weight:bold">Other<br></span>
-			<a href="about.html" target="_blank">About Me</a>
-			<br>
-			<a href="https://github.com/aaronkarp123/visuals" target="_blank">Live Concert Graphics</a>
-			<br> <br>
-			</div>
 		</div>
 		<script src="build/three.js"></script>
 
@@ -50,6 +33,15 @@
 		<script src="js/renderers/CanvasRenderer.js"></script>
 
 		<script>
+
+			var music_w = ['Tare (String Quartet, 3 Sopranos, Reel-to-Reel) 2018', 'Introduction (Fixed Media) 2018', 'Retrained Form (Installation) 2017'];
+			var music_wl = ['https://soundcloud.com/aaronkarp/Tare', 'https://soundcloud.com/aaronkarp/introduction', 'https://youtu.be/1gMaHXmhG6U'];
+
+			var cs_w = ['HaptEQ: A collaborative tool for visually impaired audio producers', 'An Approach to Audio-Only Editing for Visually Impaired Seniors'];
+			var cs_wl = ['https://www.youtube.com/watch?v=gminuhZIVOo&feature=youtu.be', 'https://dl.acm.org/citation.cfm?id=2982196'];
+
+			var other_w = ['About Me', 'Live Concert Graphics'];
+			var other_wl = ['about.html', 'https://github.com/aaronkarp123/visuals'];
 
 			var container, stats;
 			var camera, scene, renderer;
@@ -134,7 +126,7 @@
 				startButton = document.getElementById( 'startButtonId' )
 				startButton.onclick = function StartAnimation() {
 					unfade(info6, 0.02);
-					unfade(info5, 0.02);
+					unfade(info5, 0.01);
 					fadeout(document.getElementById('overlay-back'), 1.0, 0.1); 
 					runAnim = true;
 					theta_dif = 0.1;
@@ -147,6 +139,26 @@
 					   divs[i].style.display = "block";
 					}
 					var e = document.getElementById('simplified-back');
+					//populate works
+					var works = document.createElement("div")
+					works.setAttribute("id", "text");
+					var to_create = '<span style="font-weight:bold">Music<br></span>';
+					for (i = 0; i < music_w.length; i++){
+						to_create += '<a href="' + music_wl[i] + '" target="_blank">' + music_w[i] + '</a><br>';
+					}
+					to_create += '<br>';
+					to_create += '<span style="font-weight:bold">Computer Science<br></span>';
+					for (i = 0; i < cs_w.length; i++){
+						to_create += '<a href="' + cs_wl[i] + '" target="_blank">' + cs_w[i] + '</a><br>';
+					}
+					to_create += '<br>';
+					to_create += '<span style="font-weight:bold">Other<br></span>';
+					for (i = 0; i < other_w.length; i++){
+						to_create += '<a href="' + other_wl[i] + '" target="_blank">' + other_w[i] + '</a><br>';
+					}
+
+					works.innerHTML = to_create;
+					e.appendChild(works);
 					e.style.display="none";
 				}
 
@@ -196,17 +208,17 @@
 				info5.style.paddingLeft = "20px";
 				info5.style.opacity = 0.5;
 				info5.style.display = "none";
-				info5.innerHTML = '<button style="background-color:#303030; color:white; border:none; font-size:15px; font-weight:100;">Simplified</button>';
+				info5.innerHTML = '<button class="sub" style="background-color:#303030; color:white; border:none; font-size:15px; font-weight:100;">Simplified</button>';
 				info5.onclick = function simplifiedMenu() {
 					simplified_menu = !simplified_menu;
 					var elem = document.getElementById('simplified-back');
 					if (simplified_menu){
 						elem.style.display = "block";
-						info5.innerHTML = '<button style="background-color:#303030; color:white; border:none; font-size:15px; font-weight:100;">Close Menu</button>'
+						info5.innerHTML = '<button class="sub" style="background-color:#303030; color:white; border:none; font-size:15px; font-weight:100;">Close Menu</button>'
 						unfade(elem, 0.2);
 					}
 					else{
-						info5.innerHTML = '<button style="background-color:#303030; color:white; border:none; font-size:15px; font-weight:100;">Simplified</button>';
+						info5.innerHTML = '<button class="sub" style="background-color:#303030; color:white; border:none; font-size:15px; font-weight:100;">Simplified</button>';
 						//fadeout(elem, elem.style.opacity, 0.15);
 						elem.style.opacity = 0.0;
 						elem.style.display = "none";
@@ -240,15 +252,26 @@
 
 				scene = new THREE.Scene();
 
-				//var light = new THREE.AmbientLight( 0xffffff ); // soft white light
-				//scene.add( light );
-
 				var geometry = new THREE.BoxGeometry( 100, 100, 100 );
 
-				//colors = [0xff5940, 0xff5941, 0xc390ff, 0xc391ff, 0xccff40, 0xccff41];
-				colors = [0xff3333, 0xff3334, 0x00ff00, 0x00ff01, 0x00aaff, 0x01aaff];
-				other_colors = [0xffff00, 0x00ffff, 0xff00ff];
-				names = ['https://soundcloud.com/aaronkarp/introduction', 'https://youtu.be/1gMaHXmhG6U', 'https://www.youtube.com/watch?v=gminuhZIVOo&feature=youtu.be', 'https://dl.acm.org/citation.cfm?id=2982196', 'about.html', 'https://github.com/aaronkarp123/visuals'];
+				music_colors = [0xff3333, 0xff3334, 0xff3335, 0xff3336, 0xff3337, 0xff3338, 0xff3339];
+				cs_colors = [0x00ff00, 0x00ff01, 0x00ff02, 0x00ff03, 0x00ff04, 0x00ff05, 0x00ff06];
+				other_colors = [0x00aaff, 0x01aaff, 0x02aaff, 0x03aaff, 0x04aaff, 0x05aaff, 0x06aaff];
+				colors = [];
+				names = [];
+
+				for (i = 0; i < music_wl.length; i++){
+					names.push(music_wl[i]);
+					colors.push(music_colors[i]);
+				}
+				for (i = 0; i < cs_wl.length; i++){
+					names.push(cs_wl[i]);
+					colors.push(cs_colors[i]);
+				}
+				for (i = 0; i < other_wl.length; i++){
+					names.push(other_wl[i]);
+					colors.push(other_colors[i]);
+				}
 
 				for ( var i = 0; i < colors.length; i ++ ) {
 					var color0 = colors[i % colors.length];
@@ -274,7 +297,7 @@
 				}
 
 				for ( var i = 0; i < colors.length*3; i ++ ) {
-					var color0 = Math.random() * 0xFFFFFF;//other_colors[Math.floor(Math.random()*other_colors.length)];
+					var color0 = Math.random() * 0xFFFFFF;
 					var object = new THREE.Mesh( geometry, new THREE.MeshBasicMaterial( {color: color0, opacity: 0.5 } ) );
 					object.position.x = Math.random() * 800 - 400;
 					object.position.y = Math.random() * 800 - 400;
@@ -464,7 +487,7 @@
 
 				theta += theta_dif;
 
-				if (not_faded && theta > 60){
+				if (not_faded && theta > 80){
 					fadeout(info6, 0.6, 0.1); 
 					not_faded = false;
 				}

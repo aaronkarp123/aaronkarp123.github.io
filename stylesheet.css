@@ -18,6 +18,50 @@
   display: inline-block;
 }
 
+
+.sub {
+  background-color: #004A7F;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  border: none;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Arial;
+  font-size: 20px;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  -webkit-animation: glowing 2500ms infinite;
+  -moz-animation: glowing 2300ms infinite;
+  -o-animation: glowing 2400ms infinite;
+  animation: glowing 2200ms infinite;
+}
+@-webkit-keyframes glowing {
+  0% { background-color: #AAAAFF; -webkit-box-shadow: 0 0 3px #AAAAFF; }
+  50% { background-color: #AA33AA; -webkit-box-shadow: 0 0 40px #AA33AA; }
+  100% { background-color: #AAAAFF; -webkit-box-shadow: 0 0 3px #AAAAFF; }
+}
+
+@-moz-keyframes glowing {
+  0% { background-color: #AAAAFF; -moz-box-shadow: 0 0 3px #AAAAFF; }
+  50% { background-color: #AA33AA; -moz-box-shadow: 0 0 40px #AA33AA; }
+  100% { background-color: #AAAAFF; -moz-box-shadow: 0 0 3px #AAAAFF; }
+}
+
+@-o-keyframes glowing {
+  0% { background-color: #AAAAFF; box-shadow: 0 0 3px #AAAAFF; }
+  50% { background-color: #AA33AA; box-shadow: 0 0 40px #AA33AA; }
+  100% { background-color: #AAAAFF; box-shadow: 0 0 3px #AAAAFF; }
+}
+
+@keyframes glowing {
+  0% { background-color: #AAAAFF; box-shadow: 0 0 3px #AAAAFF; }
+  50% { background-color: #AA33AA; box-shadow: 0 0 40px #AA33AA; }
+  100% { background-color: #AAAAFF; box-shadow: 0 0 3px #AAAAFF; }
+}
+
+
 #simplified-back { 
     position   : absolute; 
     top        : 25%; 
