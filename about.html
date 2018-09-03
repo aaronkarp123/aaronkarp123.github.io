@@ -24,6 +24,17 @@
 		</div>
 
 		<script type="text/javascript">
+			var mobile=false;
+			window.mobilecheck = function() {
+				var check = false;
+				if(window.innerWidth<768){
+					check=true;
+				}
+				return check;
+			}
+			if(window.mobilecheck()){
+				mobile=true;
+			}
 			var cvb = document.getElementsByClassName("cvb");
 			var cvbpdf = document.getElementById("cvpdf");
 			var i;
@@ -37,6 +48,11 @@
 						cvpdf.style.display = "none";
 					open = !open;
 				})};
+			
+			if(mobile){
+				open=true;
+				cvpdf.style.display = "block";
+			}
 
 		</script>
 	</body>
