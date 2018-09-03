@@ -32,9 +32,6 @@
 				}
 				return check;
 			}
-			if(window.mobilecheck()){
-				mobile=true;
-			}
 			var cvb = document.getElementsByClassName("cvb");
 			var cvbpdf = document.getElementById("cvpdf");
 			var i;
@@ -48,11 +45,6 @@
 						cvpdf.style.display = "none";
 					open = !open;
 				})};
-			
-			if(mobile){
-				open=true;
-				cvpdf.style.display = "block";
-			}
 
 		</script>
 	</body>
