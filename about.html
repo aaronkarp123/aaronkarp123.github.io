@@ -19,7 +19,7 @@
 		<div style="padding-left: 40px; padding-right: 15px; text-indent: -25px;">
 			<p>My name is Aaron Karp</p><br>
 
-			<p><a class="cvb" target="_blank" id="cvtext">Here is my CV</a></p><br>
+			<p><a class="cvb" target="_blank" id="cvtext">>Here is my CV<</a></p><br>
 			<embed src="files/AaronKarpCV.pdf" type="application/pdf" width="100%" height="600px" id='cvpdf'/>
 		</div>
 
@@ -39,11 +39,16 @@
 			cvpdf.style.display = "none";
 			for (i = 0; i < cvb.length; i++) {
 				cvb[i].addEventListener("click", function() {
+					try{
 					if(!open)
 						cvpdf.style.display = "block";
 					else
 						cvpdf.style.display = "none";
 					open = !open;
+				}
+				catch(err){
+					window.open("files/AaronKarpCV.pdf", '_blank');
+				}
 				})};
 
 		</script>

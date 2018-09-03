@@ -95,6 +95,10 @@
     font-size: 18px;
 }
 
+#cvtext {
+  color:#8888ff;
+}
+
 #cvtext:hover {
     color:#aa88ee;
 }
