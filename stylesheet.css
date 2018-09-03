@@ -94,6 +94,10 @@
     padding: 15px;
     font-size: 18px;
 }
+
+#cvtext:hover {
+    color:#aa88ee;
+}
  
 .button {
 	font: bold 18px "Helvetica Neue", Helvetica, Arial, clean, sans-serif !important;
