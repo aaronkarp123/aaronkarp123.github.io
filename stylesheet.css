@@ -76,6 +76,20 @@
     z-index    : 0;
 } 
 
+#simplified-back-mobile { 
+    position   : relative; 
+    top        : 10%; 
+    left       : 10%; 
+    width      : 80%; 
+    height     : 80%; 
+    background : #000000; 
+    color: #ffffff;
+    opacity    : 0.0; 
+    filter     : alpha(opacity=0); 
+    display: none;
+    z-index    : 0;
+} 
+
 #text {
     padding: 15px;
     font-size: 18px;

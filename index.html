@@ -22,6 +22,18 @@
 	</head>
 	<link rel="stylesheet" type="text/css" href="stylesheet.css">
 	<body>
+		<script>
+			window.mobilecheck = function() {
+				var check = false;
+				if(window.innerWidth<768){
+					check=true;
+				}
+				return check;
+			}
+			if(window.mobilecheck()){
+				window.location.href="index-mobile.html";
+			}
+		</script>
 		<div id="overlay-back"></div> 
 		<div class="wrapper" style="text-align: center;">
 			<button class="button width-150px" id="startButtonId" style="position:absolute; top:70%; left:48%; transform: rotate(3deg);">Enter </button>
@@ -32,16 +44,9 @@
 		<script src="js/renderers/Projector.js"></script>
 		<script src="js/renderers/CanvasRenderer.js"></script>
 
+		<script type="text/javascript" src="works.js"></script>
+
 		<script>
-
-			var music_w = ['Tare (String Quartet, 3 Sopranos, Reel-to-Reel) 2018', 'Introduction (Fixed Media) 2018', 'Retrained Form (Installation) 2017'];
-			var music_wl = ['https://soundcloud.com/aaronkarp/Tare', 'https://soundcloud.com/aaronkarp/introduction', 'https://youtu.be/1gMaHXmhG6U'];
-
-			var cs_w = ['HaptEQ: A collaborative tool for visually impaired audio producers', 'An Approach to Audio-Only Editing for Visually Impaired Seniors'];
-			var cs_wl = ['https://www.youtube.com/watch?v=gminuhZIVOo&feature=youtu.be', 'https://dl.acm.org/citation.cfm?id=2982196'];
-
-			var other_w = ['About Me', 'Live Concert Graphics'];
-			var other_wl = ['about.html', 'https://github.com/aaronkarp123/visuals'];
 
 			var container, stats;
 			var camera, scene, renderer;
