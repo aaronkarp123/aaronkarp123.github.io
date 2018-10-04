@@ -12,6 +12,7 @@
 				background-color: #000000;
 				margin: 0px;
 				overflow: hidden;
+				touch-action: none
 			}
 		</style>
 		<style>
@@ -369,8 +370,6 @@
 			}
 
 			function onDocumentTouchStart( event ) {
-
-				event.preventDefault();
 
 				event.clientX = event.touches[0].clientX;
 				event.clientY = event.touches[0].clientY;
