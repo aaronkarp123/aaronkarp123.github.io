@@ -37,7 +37,9 @@
 		</script>
 		<div id="overlay-back"></div> 
 		<div class="wrapper" style="text-align: center;">
-			<button class="button width-150px" id="startButtonId" style="position:absolute; top:70%; left:48%; transform: rotate(3deg);">Enter </button>
+			<button class="button width-150px" id="startButtonId" style="position:absolute; top:71%; left:53%; transform: rotate(6deg);">Enter </button>
+			<button class="button width-150px" id="simpleButtonId" style="position:absolute; top:70%; left:30%;">Enter </button>
+		</div>
 		<div id="simplified-back"">
 		</div>
 		<script src="build/three.js"></script>
@@ -129,6 +131,38 @@
 				container = document.createElement( 'div' );
 				document.body.appendChild( container );
 
+				startButton = document.getElementById( 'simpleButtonId' )
+				startButton.onclick = function simpleAnimation() {
+					var elem = document.getElementById('startButtonId');
+    				elem.parentNode.removeChild(elem);
+    				var elem = document.getElementById('simpleButtonId');
+    				elem.parentNode.removeChild(elem);
+
+    				var e = document.getElementById('simplified-back');
+					//populate works
+					var works = document.createElement("div")
+					works.setAttribute("id", "text");
+					var to_create = '<span style="font-weight:bold; color:#eeeeee">Aaron Karp</span></br></br> <span style="font-weight:bold; color:#ff3333">Music<br></span>';
+					for (i = 0; i < music_w.length; i++){
+						to_create += '<a href="' + music_wl[i] + '" target="_blank">' + music_w[i] + '</a><br>';
+					}
+					to_create += '<br>';
+					to_create += '<span style="font-weight:bold; color:#00ff00" >Computer Science<br></span>';
+					for (i = 0; i < cs_w.length; i++){
+						to_create += '<a href="' + cs_wl[i] + '" target="_blank">' + cs_w[i] + '</a><br>';
+					}
+					to_create += '<br>';
+					to_create += '<span style="font-weight:bold; color:#00aaff" >Other<br></span>';
+					for (i = 0; i < other_w.length; i++){
+						to_create += '<a href="' + other_wl[i] + '" target="_blank">' + other_w[i] + '</a><br>';
+				}
+
+					works.innerHTML = to_create;
+					e.appendChild(works);
+					e.style.display = "block";
+					e.style.opacity = 1.0;
+				}
+
 				startButton = document.getElementById( 'startButtonId' )
 				startButton.onclick = function StartAnimation() {
 					unfade(info6, 0.02);
@@ -139,6 +173,8 @@
 					rotate_speed = 0; //Math.PI / 90;
 					animate();
 					var elem = document.getElementById('startButtonId');
+    				elem.parentNode.removeChild(elem);
+    				var elem = document.getElementById('simpleButtonId');
     				elem.parentNode.removeChild(elem);
     				var divs = document.getElementsByTagName("div");
 					for(var i = 0; i < divs.length; i++){
