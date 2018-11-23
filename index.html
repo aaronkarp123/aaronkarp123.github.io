@@ -1,128 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
+<head>
 
-		<title>Aaron Karp</title>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-		<style type="text/css">a {text-decoration: none}</style>
-		<style>
-			body {
-				font-family: Helvetica Neue;
-				background-color: #000000;
-				margin: 0px;
-				overflow: hidden;
-				touch-action: none
+	<title>Aaron Karp</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<style type="text/css">a {text-decoration: none}</style>
+	<style>
+	body {
+		font-family: Helvetica Neue;
+		background-color: #000000;
+		margin: 0px;
+		overflow: hidden;
+		touch-action: none
+	}
+</style>
+<style>
+a:hover, a:active {color: #ffffff;}
+a {color: #dfdfdf;}
+</style>
+<link rel="shortcut icon" href="files/Favicon.png" />
+</head>
+<link rel="stylesheet" type="text/css" href="stylesheet.css">
+<body>
+	<script>
+		window.mobilecheck = function() {
+			var check = false;
+			if(window.innerWidth<768){
+				check=true;
 			}
-		</style>
-		<style>
-			a:hover, a:active {color: #ffffff;}
-			a {color: #dfdfdf;}
-		</style>
-		<link rel="shortcut icon" href="files/Favicon.png" />
-	</head>
-	<link rel="stylesheet" type="text/css" href="stylesheet.css">
-	<body>
-		<script>
-			window.mobilecheck = function() {
-				var check = false;
-				if(window.innerWidth<768){
-					check=true;
-				}
-				return check;
-			}
-			if(window.mobilecheck()){
-				window.location.href="index-mobile.html";
-			}
-		</script>
-		<div id="overlay-back"></div> 
-		<div class="wrapper" style="text-align: center;">
-			<button class="button width-150px" id="startButtonId" style="position:absolute; top:71%; left:53%; transform: rotate(6deg);">Enter </button>
-			<button class="button width-150px" id="simpleButtonId" style="position:absolute; top:70%; left:30%;">Enter </button>
-		</div>
-		<div id="simplified-back"">
-		</div>
-		<script src="build/three.js"></script>
+			return check;
+		}
+		if(window.mobilecheck()){
+			window.location.href="index-mobile.html";
+		}
+	</script>
+	<div id="overlay-back"></div> 
+	<div class="wrapper" style="text-align: center;">
+		<button class="button width-150px" id="startButtonId" style="position:absolute; top:71%; left:53%; transform: rotate(6deg);">Enter </button>
+		<button class="button width-150px" id="simpleButtonId" style="position:absolute; top:70%; left:30%;">Enter </button>
+	</div>
+	<div id="simplified-back"">
+	</div>
+	<script src="build/three.js"></script>
 
-		<script src="js/renderers/Projector.js"></script>
-		<script src="js/renderers/CanvasRenderer.js"></script>
+	<script src="js/renderers/Projector.js"></script>
+	<script src="js/renderers/CanvasRenderer.js"></script>
 
-		<script type="text/javascript" src="works.js"></script>
+	<script type="text/javascript" src="works.js"></script>
 
-		<script>
+	<script>
 
-			var container, stats;
-			var camera, scene, renderer;
-			var particleMaterial;
+		var container, stats;
+		var camera, scene, renderer;
+		var particleMaterial;
 
-			var raycaster;
-			var mouse;
+		var raycaster;
+		var mouse;
 
-			var objects = [];
-			var linked_objects = [];
-			var axes = [];
+		var objects = [];
+		var linked_objects = [];
+		var axes = [];
 
-			init();
-			animate();
+		init();
+		animate();
 
-			var colors, names;
-			var previous_point;
-			var back_color;
+		var colors, names;
+		var previous_point;
+		var back_color;
 
-			var camera_distance;
-			var trackballControls;
-			var runAnim = false;
-			var not_faded = true;
-			var simplified_menu = false;
+		var camera_distance;
+		var trackballControls;
+		var runAnim = false;
+		var not_faded = true;
+		var simplified_menu = false;
 
 			 // Buttons startButton and resetButton
 			 var startButton;
 
-			function parseHexColor(c) {
-			  var j = {};
+			 function parseHexColor(c) {
+				// return color from hex
+				var j = {};
 
-			  var s = c.replace(/^#([0-9A-Fa-f]{2})([0-9A-Fa-f]{2})([0-9A-Fa-f]{2})$/, function(_, r, g, b) {
-			    j.red = parseInt(r, 16);
-			    j.green = parseInt(g, 16);
-			    j.blue = parseInt(b, 16);
+				var s = c.replace(/^#([0-9A-Fa-f]{2})([0-9A-Fa-f]{2})([0-9A-Fa-f]{2})$/, function(_, r, g, b) {
+					j.red = parseInt(r, 16);
+					j.green = parseInt(g, 16);
+					j.blue = parseInt(b, 16);
 
-			    return "";
-			  });
+					return "";
+				});
 
-			  if(s.length == 0) {
-			    return j;
-			  }
+				if(s.length == 0) {
+					return j;
+				}
 			};
 
 			function colorDif(a, b) {
+				// return euclidian difference between two hex colors
 				var a = parseHexColor(a);
-  				var b = parseHexColor(b);
-  				return Math.abs(a.red - b.red) + Math.abs(a.green - b.green) + Math.abs(a.blue - b.blue);
+				var b = parseHexColor(b);
+				return Math.abs(a.red - b.red) + Math.abs(a.green - b.green) + Math.abs(a.blue - b.blue);
 			}
 
 			function fadeout(element, initop, rate) {
+				// fade element to 0 alpha over time
 			    var op = initop;  // initial opacity
 			    var timer = setInterval(function () {
-			        if (op <= 0.01){
-			            clearInterval(timer);
-			            element.style.display = 'none';
-			        }
-			        element.style.opacity = op;
-			        element.style.filter = 'alpha(opacity=' + op * 100 + ")";
-			        op -= op * rate;
+			    	if (op <= 0.01){
+			    		clearInterval(timer);
+			    		element.style.display = 'none';
+			    	}
+			    	element.style.opacity = op;
+			    	element.style.filter = 'alpha(opacity=' + op * 100 + ")";
+			    	op -= op * rate;
 			    }, 50);
 			}
 
 			function unfade(element, rate) {
+				// unfade element from 0 alpha to 1 alpha over time
 			    var op = 0.01;  // initial opacity
 			    element.style.display = 'block';
 			    var timer = setInterval(function () {
-			        if (op >= 0.8){
-			            clearInterval(timer);
-			        }
-			        element.style.opacity = op;
-			        element.style.filter = 'alpha(opacity=' + op * 100 + ")";
-			        op += op * rate;
+			    	if (op >= 0.8){
+			    		clearInterval(timer);
+			    	}
+			    	element.style.opacity = op;
+			    	element.style.filter = 'alpha(opacity=' + op * 100 + ")";
+			    	op += op * rate;
 			    }, 10);
 			}
 
@@ -131,15 +135,16 @@
 				container = document.createElement( 'div' );
 				document.body.appendChild( container );
 
+				// create button functionality for "simplified" option
 				startButton = document.getElementById( 'simpleButtonId' )
 				startButton.onclick = function simpleAnimation() {
 					var elem = document.getElementById('startButtonId');
-    				elem.parentNode.removeChild(elem);
-    				var elem = document.getElementById('simpleButtonId');
-    				elem.parentNode.removeChild(elem);
+					elem.parentNode.removeChild(elem);
+					var elem = document.getElementById('simpleButtonId');
+					elem.parentNode.removeChild(elem);
 
-    				var e = document.getElementById('simplified-back');
-					//populate works
+					var e = document.getElementById('simplified-back');
+					//populate works from js
 					var works = document.createElement("div")
 					works.setAttribute("id", "text");
 					var to_create = '<span style="font-weight:bold; color:#eeeeee">Aaron Karp</span></br></br> <span style="font-weight:bold; color:#ff3333">Music<br></span>';
@@ -155,7 +160,7 @@
 					to_create += '<span style="font-weight:bold; color:#00aaff" >Other<br></span>';
 					for (i = 0; i < other_w.length; i++){
 						to_create += '<a href="' + other_wl[i] + '" target="_blank">' + other_w[i] + '</a><br>';
-				}
+					}
 
 					works.innerHTML = to_create;
 					e.appendChild(works);
@@ -163,6 +168,7 @@
 					e.style.opacity = 1.0;
 				}
 
+				// create button functionality for "fancy/fun" option
 				startButton = document.getElementById( 'startButtonId' )
 				startButton.onclick = function StartAnimation() {
 					unfade(info6, 0.02);
@@ -173,15 +179,15 @@
 					rotate_speed = 0; //Math.PI / 90;
 					animate();
 					var elem = document.getElementById('startButtonId');
-    				elem.parentNode.removeChild(elem);
-    				var elem = document.getElementById('simpleButtonId');
-    				elem.parentNode.removeChild(elem);
-    				var divs = document.getElementsByTagName("div");
+					elem.parentNode.removeChild(elem);
+					var elem = document.getElementById('simpleButtonId');
+					elem.parentNode.removeChild(elem);
+					var divs = document.getElementsByTagName("div");
 					for(var i = 0; i < divs.length; i++){
-					   divs[i].style.display = "block";
+						divs[i].style.display = "block";
 					}
 					var e = document.getElementById('simplified-back');
-					//populate works
+					//populate works from js
 					var works = document.createElement("div")
 					works.setAttribute("id", "text");
 					var to_create = '<span style="font-weight:bold">Music<br></span>';
@@ -251,6 +257,7 @@
 				info5.style.opacity = 0.5;
 				info5.style.display = "none";
 				info5.innerHTML = '<button class="sub" style="background-color:#303030; color:white; border:none; font-size:15px; font-weight:100;">Simplified</button>';
+				// Functionality for simplified menu in fancy screen
 				info5.onclick = function simplifiedMenu() {
 					simplified_menu = !simplified_menu;
 					var elem = document.getElementById('simplified-back');
@@ -287,7 +294,6 @@
 				back_color = 0x0a0a0a;
 
 				camera_distance = 8;
-
 				camera = new THREE.PerspectiveCamera( camera_distance, window.innerWidth / window.innerHeight, 1, 10000 );
 				camera.setFocalLength(camera_distance);
 				camera.position.set( 0, 300, 500 );
@@ -295,6 +301,7 @@
 				scene = new THREE.Scene();
 
 				var geometry = new THREE.BoxGeometry( 100, 100, 100 );
+
 
 				music_colors = [0xff3333, 0xff3334, 0xff3335, 0xff3336, 0xff3337, 0xff3338, 0xff3339];
 				cs_colors = [0x00ff00, 0x00ff01, 0x00ff02, 0x00ff03, 0x00ff04, 0x00ff05, 0x00ff06];
@@ -315,6 +322,8 @@
 					colors.push(other_colors[i]);
 				}
 
+				// Create boxes
+				// Random colors for non-linked boxes, matching colors for linked boxes
 				for ( var i = 0; i < colors.length; i ++ ) {
 					var color0 = colors[i % colors.length];
 					var object = new THREE.Mesh( geometry, new THREE.MeshBasicMaterial( {color: color0, opacity: 0.5 } ) );
@@ -359,6 +368,7 @@
 
 				}
 
+				// Create red dot and line for clicked paths
 				var PI2 = Math.PI * 2;
 				particleMaterial = new THREE.SpriteCanvasMaterial( {
 
@@ -414,20 +424,24 @@
 			}
 
 			function onDocumentMouseWheel( event ) {
-
+				// Zoom in/out
 				event.preventDefault();
 				var fovMAX = 160;
-			    var fovMIN = 1;
+				var fovMIN = 1;
 
-			    camera_distance -= event.wheelDeltaY * 0.002;
-			    camera_distance = Math.max( Math.min( camera_distance, fovMAX ), fovMIN );
-			    camera.setFocalLength(camera_distance);
+				camera_distance -= event.wheelDeltaY * 0.002;
+				camera_distance = Math.max( Math.min( camera_distance, fovMAX ), fovMIN );
+				camera.setFocalLength(camera_distance);
 
 			    //render();
 
 			}
 
 			function onDocumentMouseDown( event ) {
+				// If it's a linked box, go to link and grey the box
+				// Make a red point
+				// Connect the red point to previous red point with a white line
+
 				if (!runAnim)
 					return;
 
@@ -444,14 +458,12 @@
 
 					if (colors.includes(intersects[ 0 ].object.material.color.getHex())){
 						var win = window.open(names[colors.indexOf(intersects[ 0 ].object.material.color.getHex())], '_blank');
-  						win.focus();
-						}
+						win.focus();
+					}
 					else{
 						intersects[ 0 ].object.material.color.setHex(0x0f0f0f);
 						index = objects.indexOf(intersects[0].object)
-						//objects.splice(index, 1);
-						//scene.remove( intersects[0].object );
-  					}
+					}
 					var particle = new THREE.Sprite( particleMaterial );
 					particle.position.copy( intersects[ 0 ].point );
 					particle.scale.x = particle.scale.y = 4;
@@ -468,35 +480,15 @@
 
 
 				}
-
-				/*
-				// Parse all the faces
-				for ( var i in intersects ) {
-
-					intersects[ i ].face.material[ 0 ].color.setHex( Math.random() * 0xffffff | 0x80000000 );
-
-				}
-				*/
 			}
 
 			var rotWorldMatrix;
 			// Rotate an object around an arbitrary axis in world space       
 			function rotateAroundWorldAxis(object, axis, radians) {
-			    rotWorldMatrix = new THREE.Matrix4();
-			    rotWorldMatrix.makeRotationAxis(axis.normalize(), radians);
-
-			    // old code for Three.JS pre r54:
-			    //  rotWorldMatrix.multiply(object.matrix);
-			    // new code for Three.JS r55+:
+				rotWorldMatrix = new THREE.Matrix4();
+				rotWorldMatrix.makeRotationAxis(axis.normalize(), radians);
 			    rotWorldMatrix.multiply(object.matrix);                // pre-multiply
-
 			    object.matrix = rotWorldMatrix;
-
-			    // old code for Three.js pre r49:
-			    // object.rotation.getRotationFromMatrix(object.matrix, object.scale);
-			    // old code for Three.js pre r59:
-			    // object.rotation.setEulerFromRotationMatrix(object.matrix);
-			    // code for r59+:
 			    object.rotation.setFromRotationMatrix(object.matrix);
 			}
 
@@ -505,13 +497,7 @@
 			function animate() {
 				if (!runAnim){
 					theta_dif = 0;
-					//rotate_speed = Math.PI / 220;
 				}
-				/*
-				for (var i = 0; i < linked_objects.length; i ++){
-					rotateAroundWorldAxis(linked_objects[i], axes[i], rotate_speed);
-					//linked_objects[i].material.color.setHex(linked_objects[i].material.color.getHex() + 0x0000f0);
-				}*/
 				requestAnimationFrame( animate );
 
 				render();
@@ -523,10 +509,11 @@
 			var theta_dif = 0.1;
 
 			function render() {
-
+				// Render camera / time
 
 				theta += theta_dif;
 
+				// Fade out back if not yet done
 				if (not_faded && theta > 80){
 					fadeout(info6, 0.6, 0.1); 
 					not_faded = false;
@@ -546,4 +533,4 @@
 		</script>
 
 	</body>
-</html>
+	</html>
