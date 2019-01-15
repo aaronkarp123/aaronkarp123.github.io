@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+
+		<title>Aaron Karp</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<style type="text/css">a {text-decoration: none}</style>
+		<style>
+			body {
+				font-family: Helvetica Neue;
+				background-color: #000000;
+				margin: 0px;
+				overflow: hidden;
+			}
+		</style>
+		<style>
+			a:hover, a:active {color: #ffffff;}
+			a {color: #dfdfdf;}
+		</style>
+		<link rel="shortcut icon" href="files/Favicon.png" />
+	</head>
+	<link rel="stylesheet" type="text/css" href="stylesheet.css">
+	<body>
+		<br><br><br><br>
+		<div id="simplified-back-mobile""></div>
+		<script type="text/javascript" src="works.js"></script>
+		<script type="text/javascript">
+
+			init();
+			animate();
+
+			function unfade(element, rate) {
+			    var op = 0.01;  // initial opacity
+			    element.style.display = 'block';
+			    var timer = setInterval(function () {
+			        if (op >= 0.8){
+			            clearInterval(timer);
+			        }
+			        element.style.opacity = op;
+			        element.style.filter = 'alpha(opacity=' + op * 100 + ")";
+			        op += op * rate;
+			    }, 10);
+			}
+			function init() {
+				var divs = document.getElementsByTagName("div");
+				for(var i = 0; i < divs.length; i++){
+				   divs[i].style.display = "block";
+				}
+				var e = document.getElementById('simplified-back-mobile');
+				//populate works
+				var works = document.createElement("div")
+				works.setAttribute("id", "text");
+				var to_create = '<span style="font-weight:bold; color:#eeeeee">Aaron Karp</span></br></br> <span style="font-weight:bold; color:#ff3333">Music<br></span>';
+				for (i = 0; i < music_w.length; i++){
+					to_create += '<a href="' + music_wl[i] + '" target="_blank">' + music_w[i] + '</a><br>';
+				}
+				to_create += '<br>';
+				to_create += '<span style="font-weight:bold; color:#00ff00" >Computer Science<br></span>';
+				for (i = 0; i < cs_w.length; i++){
+					to_create += '<a href="' + cs_wl[i] + '" target="_blank">' + cs_w[i] + '</a><br>';
+				}
+				to_create += '<br>';
+				to_create += '<span style="font-weight:bold; color:#00aaff" >Other<br></span>';
+				for (i = 0; i < other_w.length; i++){
+					to_create += '<a href="' + other_wl[i] + '" target="_blank">' + other_w[i] + '</a><br>';
+				}
+
+				works.innerHTML = to_create;
+				e.appendChild(works);
+				e.style.display="none";
+
+				e.style.display = "block";
+				unfade(e, 0.2);
+			}
+			function animate() {
+				if (!runAnim){
+					theta_dif = 0;
+					//rotate_speed = Math.PI / 220;
+				}
+				/*
+				for (var i = 0; i < linked_objects.length; i ++){
+					rotateAroundWorldAxis(linked_objects[i], axes[i], rotate_speed);
+					//linked_objects[i].material.color.setHex(linked_objects[i].material.color.getHex() + 0x0000f0);
+				}*/
+				requestAnimationFrame( animate );
+
+				render();
+
+			}
+		</script>
+		<br><div><p style="color: white; padding-left: 60%;">Interactive Version Temporarily Down for Maintanance :(</p></div>
+	</body>
+	</html>
