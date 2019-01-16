@@ -1,29 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+	<head>
 
-	<title>Aaron Karp</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-	<style type="text/css">a {text-decoration: none}</style>
-	<style>
-	body {
-		font-family: Helvetica Neue;
-		background-color: #000000;
-		margin: 0px;
-		overflow: hidden;
-		touch-action: none
-	}
-</style>
-<style>
-a:hover, a:active {color: #ffffff;}
-a {color: #dfdfdf;}
-</style>
-<link rel="shortcut icon" href="files/Favicon.png" />
-</head>
-<link rel="stylesheet" type="text/css" href="stylesheet.css">
-<body>
-	<script>
+		<title>Aaron Karp</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<style type="text/css">a {text-decoration: none}</style>
+		<style>
+			body {
+				font-family: Helvetica Neue;
+				background-color: #000000;
+				margin: 0px;
+				overflow: hidden;
+			}
+		</style>
+		<style>
+			a:hover, a:active {color: #ffffff;}
+			a {color: #dfdfdf;}
+		</style>
+		<link rel="shortcut icon" href="files/Favicon.png" />
+	</head>
+	<link rel="stylesheet" type="text/css" href="stylesheet.css">
+	<body>
+		<script>
 		window.mobilecheck = function() {
 			var check = false;
 			if(window.innerWidth<768){
@@ -34,506 +33,74 @@ a {color: #dfdfdf;}
 		if(window.mobilecheck()){
 			window.location.href="index-mobile.html";
 		}
-		else{
-			window.location.href="temphomepage.html";
-		}
 	</script>
-	<div id="overlay-back"></div> 
-	<div class="wrapper" style="text-align: center;">
-		<button class="button width-150px" id="startButtonId" style="position:absolute; top:71%; left:53%; transform: rotate(6deg);">Enter </button>
-		<button class="button width-150px" id="simpleButtonId" style="position:absolute; top:70%; left:30%;">Enter </button>
-	</div>
-	<div id="simplified-back"">
-	</div>
-	<script src="build/three.js"></script>
+		<br><br><br><br>
+		<div id="simplified-back-mobile""></div>
+		<script type="text/javascript" src="works.js"></script>
+		<script type="text/javascript">
 
-	<script src="js/renderers/Projector.js"></script>
-	<script src="js/renderers/CanvasRenderer.js"></script>
-
-	<script type="text/javascript" src="works.js"></script>
-
-	<script>
-
-		var container, stats;
-		var camera, scene, renderer;
-		var particleMaterial;
-
-		var raycaster;
-		var mouse;
-
-		var objects = [];
-		var linked_objects = [];
-		var axes = [];
-
-		init();
-		animate();
-
-		var colors, names;
-		var previous_point;
-		var back_color;
-
-		var camera_distance;
-		var trackballControls;
-		var runAnim = false;
-		var not_faded = true;
-		var simplified_menu = false;
-
-			 // Buttons startButton and resetButton
-			 var startButton;
-
-			 function parseHexColor(c) {
-				// return color from hex
-				var j = {};
-
-				var s = c.replace(/^#([0-9A-Fa-f]{2})([0-9A-Fa-f]{2})([0-9A-Fa-f]{2})$/, function(_, r, g, b) {
-					j.red = parseInt(r, 16);
-					j.green = parseInt(g, 16);
-					j.blue = parseInt(b, 16);
-
-					return "";
-				});
-
-				if(s.length == 0) {
-					return j;
-				}
-			};
-
-			function colorDif(a, b) {
-				// return euclidian difference between two hex colors
-				var a = parseHexColor(a);
-				var b = parseHexColor(b);
-				return Math.abs(a.red - b.red) + Math.abs(a.green - b.green) + Math.abs(a.blue - b.blue);
-			}
-
-			function fadeout(element, initop, rate) {
-				// fade element to 0 alpha over time
-			    var op = initop;  // initial opacity
-			    var timer = setInterval(function () {
-			    	if (op <= 0.01){
-			    		clearInterval(timer);
-			    		element.style.display = 'none';
-			    	}
-			    	element.style.opacity = op;
-			    	element.style.filter = 'alpha(opacity=' + op * 100 + ")";
-			    	op -= op * rate;
-			    }, 50);
-			}
+			init();
+			animate();
 
 			function unfade(element, rate) {
-				// unfade element from 0 alpha to 1 alpha over time
 			    var op = 0.01;  // initial opacity
 			    element.style.display = 'block';
 			    var timer = setInterval(function () {
-			    	if (op >= 0.8){
-			    		clearInterval(timer);
-			    	}
-			    	element.style.opacity = op;
-			    	element.style.filter = 'alpha(opacity=' + op * 100 + ")";
-			    	op += op * rate;
+			        if (op >= 0.8){
+			            clearInterval(timer);
+			        }
+			        element.style.opacity = op;
+			        element.style.filter = 'alpha(opacity=' + op * 100 + ")";
+			        op += op * rate;
 			    }, 10);
 			}
-
 			function init() {
-
-				container = document.createElement( 'div' );
-				document.body.appendChild( container );
-
-				// create button functionality for "simplified" option
-				startButton = document.getElementById( 'simpleButtonId' )
-				startButton.onclick = function simpleAnimation() {
-					var elem = document.getElementById('startButtonId');
-					elem.parentNode.removeChild(elem);
-					var elem = document.getElementById('simpleButtonId');
-					elem.parentNode.removeChild(elem);
-
-					var e = document.getElementById('simplified-back');
-					//populate works from js
-					var works = document.createElement("div")
-					works.setAttribute("id", "text");
-					var to_create = '<span style="font-weight:bold; color:#eeeeee">Aaron Karp</span></br></br> <span style="font-weight:bold; color:#ff3333">Music<br></span>';
-					for (i = 0; i < music_w.length; i++){
-						to_create += '<a href="' + music_wl[i] + '" target="_blank">' + music_w[i] + '</a><br>';
-					}
-					to_create += '<br>';
-					to_create += '<span style="font-weight:bold; color:#00ff00" >Computer Science<br></span>';
-					for (i = 0; i < cs_w.length; i++){
-						to_create += '<a href="' + cs_wl[i] + '" target="_blank">' + cs_w[i] + '</a><br>';
-					}
-					to_create += '<br>';
-					to_create += '<span style="font-weight:bold; color:#00aaff" >Other<br></span>';
-					for (i = 0; i < other_w.length; i++){
-						to_create += '<a href="' + other_wl[i] + '" target="_blank">' + other_w[i] + '</a><br>';
-					}
-
-					works.innerHTML = to_create;
-					e.appendChild(works);
-					e.style.display = "block";
-					e.style.opacity = 1.0;
+				var divs = document.getElementsByTagName("div");
+				for(var i = 0; i < divs.length; i++){
+				   divs[i].style.display = "block";
+				}
+				var e = document.getElementById('simplified-back-mobile');
+				//populate works
+				var works = document.createElement("div")
+				works.setAttribute("id", "text");
+				var to_create = '<span style="font-weight:bold; color:#eeeeee">Aaron Karp</span></br></br> <span style="font-weight:bold; color:#ff3333">Music<br></span>';
+				for (i = 0; i < music_w.length; i++){
+					to_create += '<a href="' + music_wl[i] + '" target="_blank">' + music_w[i] + '</a><br>';
+				}
+				to_create += '<br>';
+				to_create += '<span style="font-weight:bold; color:#00ff00" >Computer Science<br></span>';
+				for (i = 0; i < cs_w.length; i++){
+					to_create += '<a href="' + cs_wl[i] + '" target="_blank">' + cs_w[i] + '</a><br>';
+				}
+				to_create += '<br>';
+				to_create += '<span style="font-weight:bold; color:#00aaff" >Other<br></span>';
+				for (i = 0; i < other_w.length; i++){
+					to_create += '<a href="' + other_wl[i] + '" target="_blank">' + other_w[i] + '</a><br>';
 				}
 
-				// create button functionality for "fancy/fun" option
-				startButton = document.getElementById( 'startButtonId' )
-				startButton.onclick = function StartAnimation() {
-					unfade(info6, 0.02);
-					unfade(info5, 0.01);
-					fadeout(document.getElementById('overlay-back'), 1.0, 0.1); 
-					runAnim = true;
-					theta_dif = 0.1;
-					rotate_speed = 0; //Math.PI / 90;
-					animate();
-					var elem = document.getElementById('startButtonId');
-					elem.parentNode.removeChild(elem);
-					var elem = document.getElementById('simpleButtonId');
-					elem.parentNode.removeChild(elem);
-					var divs = document.getElementsByTagName("div");
-					for(var i = 0; i < divs.length; i++){
-						divs[i].style.display = "block";
-					}
-					var e = document.getElementById('simplified-back');
-					//populate works from js
-					var works = document.createElement("div")
-					works.setAttribute("id", "text");
-					var to_create = '<span style="font-weight:bold">Music<br></span>';
-					for (i = 0; i < music_w.length; i++){
-						to_create += '<a href="' + music_wl[i] + '" target="_blank">' + music_w[i] + '</a><br>';
-					}
-					to_create += '<br>';
-					to_create += '<span style="font-weight:bold">Computer Science<br></span>';
-					for (i = 0; i < cs_w.length; i++){
-						to_create += '<a href="' + cs_wl[i] + '" target="_blank">' + cs_w[i] + '</a><br>';
-					}
-					to_create += '<br>';
-					to_create += '<span style="font-weight:bold">Other<br></span>';
-					for (i = 0; i < other_w.length; i++){
-						to_create += '<a href="' + other_wl[i] + '" target="_blank">' + other_w[i] + '</a><br>';
-					}
+				works.innerHTML = to_create;
+				e.appendChild(works);
+				e.style.display="none";
 
-					works.innerHTML = to_create;
-					e.appendChild(works);
-					e.style.display="none";
-				}
-
-				previous_point = null;
-
-				var info = document.createElement( 'div' );
-				info.style.position = 'absolute';
-				info.style.top = '15px';
-				info.style.width = '100%';
-				info.style.textAlign = 'left'
-				info.style.paddingLeft = "20px";
-				info.style.display = "none";
-				info.innerHTML = '<font color="fafafa">Aaron Karp</font>';
-				info2 = document.createElement( 'div' );
-				info2.style.position = 'absolute';
-				info2.style.top = '35px';
-				info2.style.width = '100%';
-				info2.style.textAlign = 'left';
-				info2.style.paddingLeft = "20px";
-				info2.style.opacity = 0.5;
-				info2.style.display = "none";
-				info2.innerHTML = '<span class="dot" style="background-color: #ff3333;"></span><font color="dfdfdf"> Music </font>';
-				info3 = document.createElement( 'div' );
-				info3.style.position = 'absolute';
-				info3.style.top = '55px';
-				info3.style.width = '100%';
-				info3.style.textAlign = 'left';
-				info3.style.paddingLeft = "20px";
-				info3.style.opacity = 0.5;
-				info3.style.display = "none";
-				info3.innerHTML = '<span class="dot" style="background-color: #00ff00;"></span><font color="dfdfdf"> Computer Science </font>';
-				info4 = document.createElement( 'div' );
-				info4.style.position = 'absolute';
-				info4.style.top = '75px';
-				info4.style.width = '100%';
-				info4.style.textAlign = 'left';
-				info4.style.paddingLeft = "20px";
-				info4.style.opacity = 0.5;
-				info4.style.display = "none";
-				info4.innerHTML = '<span class="dot" style="background-color: #00aaff;"></span><font color="dfdfdf"> Other </font>';
-
-				info5 = document.createElement( 'div' );
-				info5.style.position = 'absolute';
-				info5.style.bottom = '18px';
-				info5.style.width = '8%';
-				info5.style.textAlign = 'left';
-				info5.style.paddingLeft = "20px";
-				info5.style.opacity = 0.5;
-				info5.style.display = "none";
-				info5.innerHTML = '<button class="sub" style="background-color:#303030; color:white; border:none; font-size:15px; font-weight:100;">Simplified</button>';
-				// Functionality for simplified menu in fancy screen
-				info5.onclick = function simplifiedMenu() {
-					simplified_menu = !simplified_menu;
-					var elem = document.getElementById('simplified-back');
-					if (simplified_menu){
-						elem.style.display = "block";
-						info5.innerHTML = '<button class="sub" style="background-color:#303030; color:white; border:none; font-size:15px; font-weight:100;">Close Menu</button>'
-						unfade(elem, 0.2);
-					}
-					else{
-						info5.innerHTML = '<button class="sub" style="background-color:#303030; color:white; border:none; font-size:15px; font-weight:100;">Simplified</button>';
-						//fadeout(elem, elem.style.opacity, 0.15);
-						elem.style.opacity = 0.0;
-						elem.style.display = "none";
-					}
-				}
-
-				info6 = document.createElement( 'div' );
-				info6.style.position = 'absolute';
-				info6.style.top = '85%';
-				info6.style.width = '100%';
-				info6.style.textAlign = 'center';
-				info6.style.opacity = 0.5;
-				info6.style.display = "none";
-				info6.style.font= "14px arial,serif";
-				info6.innerHTML = '<font color="fafafa">^<br />Scroll to Zoom</font>';
-
-				container.appendChild( info );
-				container.appendChild( info2 );
-				container.appendChild( info3 );
-				container.appendChild( info4 );
-				container.appendChild( info5 );
-				container.appendChild( info6 );
-
-				back_color = 0x0a0a0a;
-
-				camera_distance = 8;
-				camera = new THREE.PerspectiveCamera( camera_distance, window.innerWidth / window.innerHeight, 1, 10000 );
-				camera.setFocalLength(camera_distance);
-				camera.position.set( 0, 300, 500 );
-
-				scene = new THREE.Scene();
-
-				var geometry = new THREE.BoxGeometry( 100, 100, 100 );
-
-
-				music_colors = [0xff3333, 0xff3334, 0xff3335, 0xff3336, 0xff3337, 0xff3338, 0xff3339];
-				cs_colors = [0x00ff00, 0x00ff01, 0x00ff02, 0x00ff03, 0x00ff04, 0x00ff05, 0x00ff06];
-				other_colors = [0x00aaff, 0x01aaff, 0x02aaff, 0x03aaff, 0x04aaff, 0x05aaff, 0x06aaff];
-				colors = [];
-				names = [];
-
-				for (i = 0; i < music_wl.length; i++){
-					names.push(music_wl[i]);
-					colors.push(music_colors[i]);
-				}
-				for (i = 0; i < cs_wl.length; i++){
-					names.push(cs_wl[i]);
-					colors.push(cs_colors[i]);
-				}
-				for (i = 0; i < other_wl.length; i++){
-					names.push(other_wl[i]);
-					colors.push(other_colors[i]);
-				}
-
-				// Create boxes
-				// Random colors for non-linked boxes, matching colors for linked boxes
-				for ( var i = 0; i < colors.length; i ++ ) {
-					var color0 = colors[i % colors.length];
-					var object = new THREE.Mesh( geometry, new THREE.MeshBasicMaterial( {color: color0, opacity: 0.5 } ) );
-					object.position.x = Math.random() * 800 - 400;
-					object.position.y = Math.random() * 800 - 400;
-					object.position.z = Math.random() * 800 - 400;
-
-					object.scale.x = Math.random() * 1;
-					object.scale.y = Math.random() * 1;
-					object.scale.z = Math.random() * 1;
-
-					object.rotation.x = Math.random() * 2 * Math.PI;
-					object.rotation.y = Math.random() * 2 * Math.PI;
-					object.rotation.z = Math.random() * 2 * Math.PI;
-
-					scene.add( object );
-
-					objects.push( object );
-					linked_objects.push (object);
-					axes.push(new THREE.Vector3(Math.random(),Math.random(),1));
-
-				}
-
-				for ( var i = 0; i < colors.length*3; i ++ ) {
-					var color0 = Math.random() * 0xFFFFFF;
-					var object = new THREE.Mesh( geometry, new THREE.MeshBasicMaterial( {color: color0, opacity: 0.5 } ) );
-					object.position.x = Math.random() * 800 - 400;
-					object.position.y = Math.random() * 800 - 400;
-					object.position.z = Math.random() * 800 - 400;
-
-					object.scale.x = Math.random() * 1;
-					object.scale.y = Math.random() * 1;
-					object.scale.z = Math.random() * 1;
-
-					object.rotation.x = Math.random() * 2 * Math.PI;
-					object.rotation.y = Math.random() * 2 * Math.PI;
-					object.rotation.z = Math.random() * 2 * Math.PI;
-
-					scene.add( object );
-
-					objects.push( object );
-
-				}
-
-				// Create red dot and line for clicked paths
-				var PI2 = Math.PI * 2;
-				particleMaterial = new THREE.SpriteCanvasMaterial( {
-
-					color: 0xFF0000, opacity:0.8,
-					program: function ( context ) {
-
-						context.beginPath();
-						context.arc( 0, 0, 0.5, 0, PI2, true );
-						context.fill();
-
-					}
-
-				} );
-
-				raycaster = new THREE.Raycaster();
-				mouse = new THREE.Vector2();
-
-				renderer = new THREE.CanvasRenderer();
-				renderer.setClearColor( back_color );
-				renderer.setPixelRatio( window.devicePixelRatio );
-				renderer.setSize( window.innerWidth, window.innerHeight );
-				container.appendChild( renderer.domElement );
-
-				//stats = new Stats();
-				//container.appendChild( stats.dom );
-
-				document.addEventListener( 'mousedown', onDocumentMouseDown, false );
-				document.addEventListener( 'touchstart', onDocumentTouchStart, false );
-				document.addEventListener( 'mousewheel', onDocumentMouseWheel, false );
-
-				window.addEventListener( 'resize', onWindowResize, false );
-
-				var elem = document.getElementById('simplified-back');
-				fadeout(elem, 0.2, 0.2);
-
+				e.style.display = "block";
+				unfade(e, 0.2);
 			}
-
-			function onWindowResize() {
-
-				camera.aspect = window.innerWidth / window.innerHeight;
-				camera.updateProjectionMatrix();
-
-				renderer.setSize( window.innerWidth, window.innerHeight );
-
-			}
-
-			function onDocumentTouchStart( event ) {
-
-				event.clientX = event.touches[0].clientX;
-				event.clientY = event.touches[0].clientY;
-				onDocumentMouseDown( event );
-
-			}
-
-			function onDocumentMouseWheel( event ) {
-				// Zoom in/out
-				event.preventDefault();
-				var fovMAX = 160;
-				var fovMIN = 1;
-
-				camera_distance -= event.wheelDeltaY * 0.002;
-				camera_distance = Math.max( Math.min( camera_distance, fovMAX ), fovMIN );
-				camera.setFocalLength(camera_distance);
-
-			    //render();
-
-			}
-
-			function onDocumentMouseDown( event ) {
-				// If it's a linked box, go to link and grey the box
-				// Make a red point
-				// Connect the red point to previous red point with a white line
-
-				if (!runAnim)
-					return;
-
-				event.preventDefault();
-
-				mouse.x = ( event.clientX / renderer.domElement.clientWidth ) * 2 - 1;
-				mouse.y = - ( event.clientY / renderer.domElement.clientHeight ) * 2 + 1;
-
-				raycaster.setFromCamera( mouse, camera );
-
-				var intersects = raycaster.intersectObjects( objects );
-
-				if ( intersects.length > 0 ) {
-
-					if (colors.includes(intersects[ 0 ].object.material.color.getHex())){
-						var win = window.open(names[colors.indexOf(intersects[ 0 ].object.material.color.getHex())], '_blank');
-						win.focus();
-					}
-					else{
-						intersects[ 0 ].object.material.color.setHex(0x0f0f0f);
-						index = objects.indexOf(intersects[0].object)
-					}
-					var particle = new THREE.Sprite( particleMaterial );
-					particle.position.copy( intersects[ 0 ].point );
-					particle.scale.x = particle.scale.y = 4;
-					scene.add( particle );
-					if (previous_point != null){  					
-						var material = new THREE.LineBasicMaterial( { color: 0xfafafa} );
-						var geometry = new THREE.Geometry();
-						geometry.vertices.push(previous_point);
-						geometry.vertices.push(intersects[ 0 ].point);
-						var line = new THREE.Line( geometry, material );
-						scene.add( line );
-					}
-					previous_point =  intersects[ 0 ].point;
-
-
-				}
-			}
-
-			var rotWorldMatrix;
-			// Rotate an object around an arbitrary axis in world space       
-			function rotateAroundWorldAxis(object, axis, radians) {
-				rotWorldMatrix = new THREE.Matrix4();
-				rotWorldMatrix.makeRotationAxis(axis.normalize(), radians);
-			    rotWorldMatrix.multiply(object.matrix);                // pre-multiply
-			    object.matrix = rotWorldMatrix;
-			    object.rotation.setFromRotationMatrix(object.matrix);
-			}
-
-			var rotate_speed = Math.PI / 90;
-
 			function animate() {
 				if (!runAnim){
 					theta_dif = 0;
+					//rotate_speed = Math.PI / 220;
 				}
+				/*
+				for (var i = 0; i < linked_objects.length; i ++){
+					rotateAroundWorldAxis(linked_objects[i], axes[i], rotate_speed);
+					//linked_objects[i].material.color.setHex(linked_objects[i].material.color.getHex() + 0x0000f0);
+				}*/
 				requestAnimationFrame( animate );
 
 				render();
 
 			}
-
-			var radius = 600;
-			var theta = 0;
-			var theta_dif = 0.1;
-
-			function render() {
-				// Render camera / time
-
-				theta += theta_dif;
-
-				// Fade out back if not yet done
-				if (not_faded && theta > 80){
-					fadeout(info6, 0.6, 0.1); 
-					not_faded = false;
-				}
-
-				camera.position.x = radius * Math.sin( THREE.Math.degToRad( theta ) );
-				camera.position.y = radius * Math.sin( THREE.Math.degToRad( theta ) );
-				camera.position.z = radius * Math.cos( THREE.Math.degToRad( theta ) );
-				camera.lookAt( scene.position );
-
-				renderer.getContext().canvas.getContext("2d").clearRect(0, 0, renderer.getContext().canvas.width, renderer.getContext().canvas.height);
-				renderer.render( scene, camera );
-
-
-			}
-
 		</script>
-
+		<br><div><p style="color: white; padding-left: 60%;">Interactive Version Temporarily Down for Maintanance :(</p></div>
 	</body>
 	</html>
