@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-
 		<title>Aaron Karp</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
@@ -12,6 +11,7 @@
 				background-color: #000000;
 				margin: 0px;
 				overflow: hidden;
+				line-height: 1.5;
 			}
 		</style>
 		<style>
@@ -35,18 +35,33 @@
 		}
 	</script>
 		<br><br><br><br>
-		<div id="simplified-back-mobile""></div>
+		<div id="BlackBackground"></div>
+		<div id="simplified-back-mobile"></div>
+		<div id ="loaded_content"></div>
 		<script type="text/javascript" src="works.js"></script>
+		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 		<script type="text/javascript">
 
 			init();
-			animate();
+
+			async function fetchHtmlAsText(url) {
+			    return await (await fetch(url)).text();
+			}
+
+			async function load_home(html_link) {
+				var e = document.getElementById('simplified-back-mobile');
+				const contentDiv = document.getElementById("loaded_content");
+				contentDiv.innerHTML= await fetchHtmlAsText("https://aaronmkarp.com/within.html");  // html_link
+				contentDiv.className = "fadeinleft";
+				e.className = "fadeoutleft";
+				e.style.fontFamily = "Helvetica Neue";
+			}
 
 			function unfade(element, rate) {
 			    var op = 0.01;  // initial opacity
 			    element.style.display = 'block';
 			    var timer = setInterval(function () {
-			        if (op >= 0.8){
+			        if (op >= 1.0){
 			            clearInterval(timer);
 			        }
 			        element.style.opacity = op;
@@ -54,6 +69,20 @@
 			        op += op * rate;
 			    }, 10);
 			}
+
+			function fade(element, rate) {
+			    var op = 1.0;  // initial opacity
+			    element.style.display = 'block';
+			    var timer = setInterval(function () {
+			        if (op <= 0.001){
+			            clearInterval(timer);
+			        }
+			        element.style.opacity = op;
+			        element.style.filter = 'alpha(opacity=' + op * 100 + ")";
+			        op -= op * rate;
+			    }, 15);
+			}
+			
 			function init() {
 				var divs = document.getElementsByTagName("div");
 				for(var i = 0; i < divs.length; i++){
@@ -65,7 +94,8 @@
 				works.setAttribute("id", "text");
 				var to_create = '<span style="font-weight:bold; color:#eeeeee">Aaron Karp</span></br></br> <span style="font-weight:bold; color:#ff3333">Music<br></span>';
 				for (i = 0; i < music_w.length; i++){
-					to_create += '<a href="' + music_wl[i] + '" target="_blank">' + music_w[i] + '</a><br>';
+					//to_create += '<a href="' + music_wl[i] + '" target="_blank">' + music_w[i] + '</a><br>';
+					to_create += '<a href="#" id="' + music_w[i] + '" onclick="load_home(\'' + music_wl[i] + '\' );">' + music_w[i] + '</a><br>';
 				}
 				to_create += '<br>';
 				to_create += '<span style="font-weight:bold; color:#00ff00" >Computer Science<br></span>';
@@ -84,23 +114,9 @@
 
 				e.style.display = "block";
 				unfade(e, 0.2);
+				//const contentDiv = document.getElementById("loaded_content");
 			}
-			function animate() {
-				if (!runAnim){
-					theta_dif = 0;
-					//rotate_speed = Math.PI / 220;
-				}
-				/*
-				for (var i = 0; i < linked_objects.length; i ++){
-					rotateAroundWorldAxis(linked_objects[i], axes[i], rotate_speed);
-					//linked_objects[i].material.color.setHex(linked_objects[i].material.color.getHex() + 0x0000f0);
-				}*/
-				requestAnimationFrame( animate );
 
-				render();
-
-			}
 		</script>
-		<br><div><p style="color: white; padding-left: 60%;">Interactive Version Temporarily Down for Maintanance :(</p></div>
 	</body>
 	</html>
