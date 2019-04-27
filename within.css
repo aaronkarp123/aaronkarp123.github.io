@@ -19,11 +19,6 @@ iframe {
 .mySlides {display: none;}
 img {vertical-align: middle;}
 
-body,html{
-height: 100%;
-background: #dddddf;
-}
-
 h1{
 	color: #532277;
 	padding-left: 4%;
@@ -91,15 +86,9 @@ p{
   .text {font-size: 11px}
 }
 
-a:link {
+.description:link {
   color: red; 
   background-color: transparent; 
-  text-decoration: underline;
-}
-
-a:hover {
-  color: #baf;
-  background-color: transparent;
   text-decoration: underline;
 }
 
