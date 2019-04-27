@@ -86,12 +86,6 @@ p{
   .text {font-size: 11px}
 }
 
-.description:link {
-  color: red; 
-  background-color: transparent; 
-  text-decoration: underline;
-}
-
 .description {
   color: #000000;
 }
