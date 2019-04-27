@@ -51,7 +51,7 @@
 			async function load_home(html_link) {
 				var e = document.getElementById('simplified-back-mobile');
 				const contentDiv = document.getElementById("loaded_content");
-				contentDiv.innerHTML= await fetchHtmlAsText("https://aaronmkarp.com/within.html");  // html_link
+				contentDiv.innerHTML= await fetchHtmlAsText(html_link);  // html_link
 				contentDiv.className = "fadeinleft";
 				e.className = "fadeoutleft";
 				e.style.fontFamily = "Helvetica Neue";
