@@ -257,14 +257,14 @@
 
 #close {
   cursor: pointer;
-  color: #aa2222;
+  color: #dd2222;
   font-size: 30px;
   position: absolute;
   top: 5%;
   left: 5%;
   padding: 5px 10px;
-  background-color: #aaaaaa;
+  background-color: #000000;
   opacity: 0;
 }
 
-#close:hover {background: #bbb;}
+#close:hover {color: #dd77bb;}
