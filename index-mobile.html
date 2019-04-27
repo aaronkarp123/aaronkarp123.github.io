@@ -27,8 +27,7 @@
 		<script type="text/javascript">
 
 			init();
-			animate();
-
+			
 			function unfade(element, rate) {
 			    var op = 0.01;  // initial opacity
 			    element.style.display = 'block';
@@ -71,20 +70,5 @@
 
 				e.style.display = "block";
 				unfade(e, 0.2);
-			}
-			function animate() {
-				if (!runAnim){
-					theta_dif = 0;
-					//rotate_speed = Math.PI / 220;
-				}
-				/*
-				for (var i = 0; i < linked_objects.length; i ++){
-					rotateAroundWorldAxis(linked_objects[i], axes[i], rotate_speed);
-					//linked_objects[i].material.color.setHex(linked_objects[i].material.color.getHex() + 0x0000f0);
-				}*/
-				requestAnimationFrame( animate );
-
-				render();
-
 			}
 		</script>
