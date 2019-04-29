@@ -53,7 +53,6 @@ var slideIndex = 0;
 showSlides();
 
 function showSlides() {
-  console.log("SHOW SLIDES");
   var i;
   var slides = document.getElementsByClassName("mySlides");
   var dots = document.getElementsByClassName("dot");
@@ -69,9 +68,6 @@ function showSlides() {
   dots[slideIndex-1].className += " active";
   setTimeout(showSlides, 6000); // Change image every 2 seconds
 }
-
-window.onload = showSlides;
-document.onload = showSlides;
 
 </script>
 

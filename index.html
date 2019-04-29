@@ -45,6 +45,28 @@
 
 			init();
 
+
+			var slideIndex = 0;
+			var slideTimeout = null;
+			var loaded = false
+
+			function showSlides() {
+			  var i;
+			  var slides = document.getElementsByClassName("mySlides");
+			  var dots = document.getElementsByClassName("dot");
+			  for (i = 0; i < slides.length; i++) {
+			    slides[i].style.display = "none";  
+			  }
+			  slideIndex++;
+			  if (slideIndex > slides.length) {slideIndex = 1}    
+			  for (i = 0; i < dots.length; i++) {
+			    dots[i].className = dots[i].className.replace(" active", "");
+			  }
+			  slides[slideIndex-1].style.display = "block";  
+			  dots[slideIndex-1].className += " active";
+			  slideTimeout = setTimeout(showSlides, 6000); // Change image every 2 seconds
+			}
+
 			async function fetchHtmlAsText(url) {
 			    return await (await fetch(url)).text();
 			}
@@ -60,16 +82,30 @@
 				else{
 					try{
 					contentDiv.innerHTML = await fetchHtmlAsText(html_link);
+					if (html_link.includes("within")){
+						slideIndex = 0;
+						showSlides();
+					}
 					}
 					catch (err){
 						window.open(html_link, '_blank');
 						return;
 					}
 				}
+				loaded = true;
 				contentDiv.className = "fadeinleft";
 				e.className = "fadeoutleft";
 				e.style.fontFamily = "Helvetica Neue";
 				document.getElementById("close").className = "fadeIn";
+			}
+
+			function clearContent() {
+			  setTimeout(
+			    function() {
+			    	if (!loaded){
+					      document.getElementById('loaded_content').innerHTML = '';
+					  }
+			    }, 5500);
 			}
 
 			function unloadHome() {
@@ -82,7 +118,11 @@
 				}
 				contentDiv.className = "fadeoutright";
 				e.className = "fadeinright";
-				console.log("HERE")
+				if (slideTimeout != null){
+					clearTimeout(slideTimeout);
+				}
+				loaded = false;
+				clearContent();
 			}
 
 			function unfade(element, rate) {
