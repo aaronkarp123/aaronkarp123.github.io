@@ -14,31 +14,31 @@
 
 .fadeinleft {
   left: 110%;
-  -webkit-animation: myfirst 5s 1 forwards; /* Safari 4.0 - 8.0 */
+  -webkit-animation: myfirst 4s 1 forwards; /* Safari 4.0 - 8.0 */
   -webkit-animation-direction: alternate; /* Safari 4.0 - 8.0 */
-  animation: myfirst 5s 1 forwards;
+  animation: myfirst 4s 1 forwards;
   animation-direction: alternate;
 }
 
 .fadeoutleft {
   left: 10%
-  -webkit-animation: fadeOutLeft 10s 1 forwards; /* Safari 4.0 - 8.0 */
+  -webkit-animation: fadeOutLeft 7s 1 forwards; /* Safari 4.0 - 8.0 */
   -webkit-animation-direction: alternate; /* Safari 4.0 - 8.0 */
-  animation: fadeOutLeft 10s 1 forwards;
+  animation: fadeOutLeft 7s 1 forwards;
   animation-direction: alternate;
 }
 
 .fadeinright {
-  -webkit-animation: fadeInRight 5s 1 forwards; /* Safari 4.0 - 8.0 */
+  -webkit-animation: fadeInRight 4s 1 forwards; /* Safari 4.0 - 8.0 */
   -webkit-animation-direction: alternate; /* Safari 4.0 - 8.0 */
-  animation: fadeInRight 5s 1 forwards;
+  animation: fadeInRight 4s 1 forwards;
   animation-direction: alternate;
 }
 
 .fadeoutright {
-  -webkit-animation: fadeOutRight 10s 1 forwards; /* Safari 4.0 - 8.0 */
+  -webkit-animation: fadeOutRight 6s 1 forwards; /* Safari 4.0 - 8.0 */
   -webkit-animation-direction: alternate; /* Safari 4.0 - 8.0 */
-  animation: fadeOutRight 10s 1 forwards;
+  animation: fadeOutRight 6s 1 forwards;
   animation-direction: alternate;
 }
 
