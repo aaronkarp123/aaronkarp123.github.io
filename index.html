@@ -174,7 +174,11 @@
 				for (i = 0; i < other_w.length; i++){
 					to_create += '<a href="' + other_wl[i] + '" target="_blank">' + other_w[i] + '</a><br>';
 				}
-
+				to_create += '<br>';
+				to_create += '<span style="font-weight:bold; color:#aa55aa" >Fun<br></span>';
+				for (i = 0; i < fun_w.length; i++){
+					to_create += '<a href="' + fun_wl[i] + '" target="_blank">' + fun_w[i] + '</a><br>';
+				}
 				works.innerHTML = to_create;
 				e.appendChild(works);
 				e.style.display="none";

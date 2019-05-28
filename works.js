@@ -4,5 +4,8 @@ var music_wl = ['https://aaronmkarp.com/within.html', 'https://aaronmkarp.com/ta
 var cs_w = ['HaptEQ: A collaborative tool for visually impaired audio producers', 'An Approach to Audio-Only Editing for Visually Impaired Seniors'];
 var cs_wl = ['https://www.youtube.com/embed/gminuhZIVOo?enablejsapi=1', 'https://dl.acm.org/citation.cfm?id=2982196'];
 
-var other_w = ['Falter/Cleanse (Solo Viola and Electronics) 2018 - composed by Hunter Brown', 'CV', 'Github'];
+var fun_w = ['mountain', 'dial']
+var fun_wl = ['mountain.html', 'dial.html']
+
+var other_w = ['Falter/Cleanse (Solo Viola and Electronics) 2018 - by Hunter Brown', 'CV', 'Github'];
 var other_wl = ['https://soundcloud.com/hunter-brown-music/faltercleanse', 'files/AaronKarpCV.pdf', 'https://github.com/aaronkarp123'];
