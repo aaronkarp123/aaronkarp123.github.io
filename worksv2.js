@@ -7,5 +7,5 @@ var cs_wl = ['https://www.youtube.com/embed/gminuhZIVOo?enablejsapi=1', 'https:/
 var fun_w = ['mountain', 'dial']
 var fun_wl = ['mountain.html', 'dial.html']
 
-var other_w = ['Falter/Cleanse (Solo Viola and Electronics) 2018 - by Hunter Brown', 'CV', 'Github'];
-var other_wl = ['https://soundcloud.com/hunter-brown-music/faltercleanse', 'files/AaronKarpCV.pdf', 'https://github.com/aaronkarp123'];
+var other_w = ['Prying Ears: A Critical Response to Mass Audio Surveillance (Master\'s Thesis) 2019','Falter/Cleanse (Solo Viola and Electronics) 2018 - by Hunter Brown', 'CV', 'Github'];
+var other_wl = ['files/KarpThesis.pdf','https://soundcloud.com/hunter-brown-music/faltercleanse', 'files/AaronKarpCV.pdf', 'https://github.com/aaronkarp123'];
