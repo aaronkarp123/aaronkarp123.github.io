@@ -6,7 +6,8 @@ var color;
 var all_colors;
 var num_frames;
 var width_factor = 50;
-var mod_frames = width_factor+25;
+var mod_mod = 25;
+var mod_frames = width_factor+mod_mod;
 var speed = 1;
 var max_length;
 var os;
@@ -200,8 +201,9 @@ function update_positives() {
 function draw() {
   background(50);
   num_frames++;
-  if (num_frames % (50/speed) == 0)
+  if ((num_frames+mod_mod) % (50/speed + mod_mod) == 0){
   	update_positives();
+  	}
   if (num_frames % mod_frames == 0){
   	//update_positives();
   	var index = int(Math.random()*cur_word.length);
