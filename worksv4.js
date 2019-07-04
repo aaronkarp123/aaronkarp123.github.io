@@ -4,8 +4,8 @@ var music_wl = ['https://aaronmkarp.com/within.html', 'https://aaronmkarp.com/ta
 var cs_w = ['HaptEQ: A collaborative tool for visually impaired audio producers', 'An Approach to Audio-Only Editing for Visually Impaired Seniors'];
 var cs_wl = ['https://www.youtube.com/embed/gminuhZIVOo?enablejsapi=1', 'https://dl.acm.org/citation.cfm?id=2982196'];
 
-var fun_w = ['mountain', 'dial']
-var fun_wl = ['mountain.html', 'dial.html']
+var fun_w = ['mountains', 'dial', 'u+i']
+var fun_wl = ['mountains.html', 'dial.html', 'u_i.html']
 
 var other_w = ['Prying Ears: A Critical Response to Mass Audio Surveillance (Master\'s Thesis) 2019','Falter/Cleanse (Solo Viola and Electronics) 2018 - by Hunter Brown', 'CV', 'Github'];
 var other_wl = ['files/KarpThesis.pdf','https://soundcloud.com/hunter-brown-music/faltercleanse', 'files/AaronKarpCV.pdf', 'https://github.com/aaronkarp123'];

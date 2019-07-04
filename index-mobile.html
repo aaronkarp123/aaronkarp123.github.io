@@ -22,8 +22,8 @@
 	</head>
 	<link rel="stylesheet" type="text/css" href="stylesheet.css">
 	<body>
-		<div id="simplified-back-mobile""></div>
-		<script type="text/javascript" src="worksv3.js"></script>
+		<div id="simplified-back-mobile" style="overflow: auto"></div>
+		<script type="text/javascript" src="worksv4.js"></script>
 		<script type="text/javascript">
 
 			init();
@@ -68,6 +68,8 @@
 				for (i = 0; i < fun_w.length; i++){
 					to_create += '<a href="' + fun_wl[i] + '" target="_blank">' + fun_w[i] + '</a><br>';
 				}
+
+				to_create += '<br><br><br>'
 
 				works.innerHTML = to_create;
 				e.appendChild(works);

@@ -79,7 +79,10 @@ function ar_to_str(a) {
 function random_word(l) {
 	s = [];
 	for (var i = 0; i < l; i++){
-		s.push(String.fromCharCode(97+Math.floor(Math.random()*26)));
+		var temp = String.fromCharCode(97+Math.floor(Math.random()*26));
+		while (temp == "w" || temp == "e" || temp == "u" || temp == "s")
+			temp = String.fromCharCode(97+Math.floor(Math.random()*26));
+		s.push(temp);
 	}
 	return s;
 }

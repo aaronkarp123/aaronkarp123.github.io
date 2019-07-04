@@ -36,10 +36,14 @@
 	</script>
 		<br><br><br><br>
 		<div id="BlackBackground"></div>
-		<div id="simplified-back-mobile"></div>
+		 <div id="simplified-back-mobile" style="overflow: auto;">
+		 	<div style="width: 1%; height:100vh; padding-right: 8px; float:left; direction: rtl;">
+		 		<!-- <video id="myvideo" autoplay loop muted playsinline src="files/scrollgif.mp4" height="200" playbackrate="0.5" style="position: absolute; top: 40%; opacity: 0.4;" alt="Italian Trulli"></video> -->
+		 	</div>
+		</div>
 		<div id ="loaded_content"></div>
 		<div id="closeBut"><span id="close" onclick="unloadHome();">x</span></div>
-		<script type="text/javascript" src="worksv3.js"></script>
+		<script type="text/javascript" src="worksv4.js"></script>
 		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 		<script type="text/javascript">
 
@@ -152,6 +156,7 @@
 			}
 			
 			function init() {
+
 				var divs = document.getElementsByTagName("div");
 				for(var i = 0; i < divs.length; i++){
 				   divs[i].style.display = "block";
@@ -179,6 +184,7 @@
 				for (i = 0; i < fun_w.length; i++){
 					to_create += '<a href="' + fun_wl[i] + '" target="_blank">' + fun_w[i] + '</a><br>';
 				}
+				to_create += '<br><br><br><br><br>'
 				works.innerHTML = to_create;
 				e.appendChild(works);
 				e.style.display="none";
