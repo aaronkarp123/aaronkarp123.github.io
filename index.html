@@ -37,9 +37,11 @@
 		<br><br><br><br>
 		<div id="BlackBackground"></div>
 		 <div id="simplified-back-mobile" style="overflow: auto;">
-		 	<div style="width: 1%; height:100vh; padding-right: 8px; float:left; direction: rtl;">
+		 	<!-- <hr align="left" style="border: 2px solid#5b9aa0; width: 60%;"/> -->
+		 	<!--<div style="width: 1.5%; height:100vh; padding-right: 8px; float:left; direction: rtl;">
+		 		<img src="files/barbot.png" height="50" style="position: absolute; left: 0%; top: 3.0%; opacity: 0.5;"> -->
 		 		<!-- <video id="myvideo" autoplay loop muted playsinline src="files/scrollgif.mp4" height="200" playbackrate="0.5" style="position: absolute; top: 40%; opacity: 0.4;" alt="Italian Trulli"></video> -->
-		 	</div>
+		 	<!--</div> -->
 		</div>
 		<div id ="loaded_content"></div>
 		<div id="closeBut"><span id="close" onclick="unloadHome();">x</span></div>
@@ -165,7 +167,9 @@
 				//populate works
 				var works = document.createElement("div")
 				works.setAttribute("id", "text");
-				var to_create = '<span style="font-weight:bold; color:#eeeeee">Aaron Karp</span></br></br> <span style="font-weight:bold; color:#ff3333">Music<br></span>';
+				var to_create = '';
+
+				to_create += '<br><span style="font-weight:bold; color:#eeeeee">Aaron Karp</span></br></br> <span style="font-weight:bold; color:#ff3333">Music<br>	</span>';
 				for (i = 0; i < music_w.length; i++){
 					to_create += '<a href="#" id="' + music_w[i] + '" onclick="load_home(\'' + music_wl[i] + '\' );">' + music_w[i] + '</a><br>';
 				}
@@ -184,7 +188,8 @@
 				for (i = 0; i < fun_w.length; i++){
 					to_create += '<a href="' + fun_wl[i] + '" target="_blank">' + fun_w[i] + '</a><br>';
 				}
-				to_create += '<br><br><br><br><br>'
+				//to_create += '<hr align="left" style="border: 2px solid#5b9aa0; width: 80%;"/>'
+				//to_create += '<img src="files/bartop.png" height="50" style="position: relative; left: 0%; bottom:0; opacity: 0.5;">'
 				works.innerHTML = to_create;
 				e.appendChild(works);
 				e.style.display="none";
