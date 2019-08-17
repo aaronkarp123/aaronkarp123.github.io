@@ -2,6 +2,7 @@ let frame_count = 0;
 let resolution = 0.002;
 let v_resolution = 0.5;
 let seeds = [];
+let xoffsets = [];
 let back_c = [0,0,0];
 let back_c_v = [Math.random(-0.0001, 0.0001)/20,Math.random(-0.0001, 0.0001)/20,Math.random(-0.0001, 0.0001)/20];
 
@@ -24,20 +25,21 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   for (var i = -6; i <= windowHeight * v_resolution + 3; i++){
     seeds.push(random(100000));
+    xoffsets.push(random(windowWidth/2));
   }
   frameRate(60);
 }
 
-function draw_line(seed, col, y_off){
+function draw_line(seed, col, y_off, x_off){
   let ratio = windowWidth / (windowWidth * resolution);
-  let prev_x = 0;
+  let prev_x = -x_off;
   let prev_y = noise(seed + frame_count*resolution) * height - height/2 + y_off;
   let cur_x = 0;
   let cur_y = 0;
   stroke(col);
   strokeWeight(10);
   for (var i = 1; i <= windowWidth * resolution + 1; i++){
-    cur_x = i*ratio;
+    cur_x = prev_x + i*ratio;
     cur_y = noise(seed + frame_count*resolution + i) * height - height/2 + y_off;
     line(prev_x, prev_y, cur_x, cur_y);
     prev_x = cur_x;
@@ -122,9 +124,9 @@ function draw() {
   let ratio = windowHeight / (windowHeight * v_resolution);
   for (var r = -6; r <= windowHeight * v_resolution + 3; r++){
     if (r%2 == 0)
-      draw_line(seeds[r], [255 - back_c[0], 255-back_c[1], 255-back_c[2]], r * ratio);
+      draw_line(seeds[r], [255 - back_c[0], 255-back_c[1], 255-back_c[2]], r * ratio, xoffsets[r]);
     else
-      draw_line(seeds[r], back_c, r * ratio);
+      draw_line(seeds[r], back_c, r * ratio, xoffsets[r]);
   }
 
 }
