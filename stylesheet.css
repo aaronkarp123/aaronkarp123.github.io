@@ -178,7 +178,9 @@
   display:none;
 }
 
-
+#simple_text_back{
+  height: 100%;
+  overflow-y: scroll;
 } 
 
 @keyframes fadein {
