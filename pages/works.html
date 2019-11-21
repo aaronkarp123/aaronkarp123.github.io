@@ -11,17 +11,17 @@
 
 </head>
 <div class="topnav">
-  <a id="homeid" href="../index.html">Home</a>
+  <a id="homeid" href="../">Home</a>
   <a id="about_a" href="works.html?name=aaron">About</a>
 </div>
 <body>
   <div id="card_div" style="overflow: auto;"></div>
 
-  <div class='col-6'> <!-- Div for Title/Desc -->
+  <div id="title_div" class='col-6'> <!-- Div for Title/Desc -->
   	<h3 id="work_title" style="margin-left: 30px;"></h3>
   	<p id="work_description" style="margin-left: 50px;"></div>
 
-  <div class='col-6'> <!-- Div for Technical Details -->
+  <div id="tech_div" class='col-6'> <!-- Div for Technical Details -->
   	<br><br>
   	<p id="technical_specs"></p>
   </div>
@@ -88,7 +88,10 @@ var load_data = function(){
         homeid.style.fontSize = "40px";
         var aboutid = document.getElementById('about_a');
         aboutid.style.fontSize = "40px";
-        font_size = '22px';
+        font_size = '24px';
+        document.getElementById("title_div").className = "col-12";
+        document.getElementById("title_div").innerHTML += "<br><br>";
+        document.getElementById("tech_div").className = "col-12";
     }
 
     var work_title = document.getElementById('work_title');
