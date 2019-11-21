@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Aaron Karp</title>
+  <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Lato:300" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<link rel="stylesheet" href="../stylesheet.css">
+  <script type="text/javascript" src="../worksv4.js"></script>
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
+</head>
+<div class="topnav">
+  <a href="../index.html">Home</a>
+  <a id="about_a" href="works.html?name=aaron">About</a>
+</div>
+<body>
+  <div id="card_div" style="overflow: auto;"></div>
+
+  <div class='col-6'> <!-- Div for Title/Desc -->
+  	<h3 id="work_title" style="margin-left: 30px;"></h3>
+  	<p id="work_description" style="margin-left: 50px;"></div>
+
+  <div class='col-6'> <!-- Div for Technical Details -->
+  	<br><br>
+  	<p id="technical_specs"></p>
+  </div>
+
+  <div class="content" style="padding-left: 50px; padding-right: 50px;">
+    <div id="image_grid" class="scrolling-wrapper-flexbox">
+  	</div>
+  </div>
+
+  <div id="soundcloud_viewer"></div>
+
+  <div id="pdf_viewer" style="padding-left: 10%; padding-right: 10%; padding-top: 15px;"></div>
+
+  <br>
+
+  <div id = "embedded_video" style="padding-left: 50px; padding-right: 50px; position:relative; padding-top:56.25%; clear:both;">
+  </div>
+
+<script type="text/javascript">
+
+  var folder_name = '';
+
+  window.onload = function () {
+    var url = document.location.href,
+        params = url.split('?')[1].split('&'),
+        data = {}, tmp;
+    for (var i = 0, l = params.length; i < l; i++) {
+         tmp = params[i].split('=');
+         data[tmp[0]] = tmp[1];
+    }
+   folder_name = data.name;
+   loadScript(folder_name + "/data.js", load_data);  // set its src to the provided URL
+}
+
+function loadScript(url, callback)
+{
+    // Adding the script tag to the head as suggested before
+    var head = document.head;
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = url;
+
+    // Then bind the event to the callback function.
+    // There are several events for cross browser compatibility.
+    script.onreadystatechange = callback;
+    script.onload = callback;
+
+    // Fire the loading
+    head.appendChild(script);
+}
+
+var load_data = function(){
+    if (folder_name == 'aaron'){
+      var about_a = document.getElementById('about_a');
+      about_a.classList.add("active");
+    }
+
+    var work_title = document.getElementById('work_title');
+    work_title.innerHTML = title;
+
+    var work_description = document.getElementById("work_description");
+    work_description.innerHTML = description;
+
+    var technical_specs = document.getElementById("technical_specs");
+    technical_specs.innerHTML = specs;
+
+    var image_grid = document.getElementById("image_grid");
+    if (images.length > 0 ){
+      image_html = '';
+      for (var i = 0; i < images.length; i++){
+        image_html += '<img class="card slide_img" src="' + folder_name + '/' + images[i] + '">'
+      }
+      image_grid.innerHTML = image_html;
+    }
+    else{
+      image_grid.parentNode.removeChild(image_grid);
+    }
+
+    var soundcloud_viewer = document.getElementById("soundcloud_viewer");
+    if (soundcloud_link != ''){
+      soundcloud_viewer.innerHTML = '<iframe scrolling="no" frameborder="no" allow="autoplay" style="left:10%;width:100%;" src=' + soundcloud_link + '"></iframe>';
+    }
+    else{
+      soundcloud_viewer.parentNode.removeChild(soundcloud_viewer);
+    }
+
+    var pdf_viewer = document.getElementById("pdf_viewer");
+    if (pdf != ''){
+      if (pdf.includes('pdf'))
+        pdf_viewer.innerHTML = '<embed src=" ' + pdf + ' " width="100%" height="700" type="application/pdf">';
+      else
+        pdf_viewer.innerHTML = '<img src=" ' + pdf + ' " width="100%">';
+    }
+    else{
+      pdf_viewer.parentNode.removeChild(pdf_viewer);
+    }
+
+    var embedded_video = document.getElementById('embedded_video');
+    if (video != ''){
+      embedded_video.innerHTML =     '<iframe frameborder="0" allowfullscreen style="position:absolute;top:0;left:10%;width:100%;height:100%;"src=" ' + video + ' "></iframe>';
+    }
+    else{
+      embedded_video.parentNode.removeChild(embedded_video);
+    }
+
+  };
+
+</script>
+
+</body>
+</html>
