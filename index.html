@@ -24,14 +24,14 @@
   function create_card(name, desc, yr, card_url, link_url, w_h) {
     new_card = "";
     if (link_url == '-1'){
-      new_card += '<div class="useless_card" style="background-image: url(\'pages/' + card_url + '/card.png\'); background-repeat: no-repeat; background-position: center;  background-size: cover; width: ' + w_h + '; height: ' + w_h + ';">';
+      new_card += '<div class="useless_card" style="background-image: url(\'pages/' + card_url + '/card.jpg\'); background-repeat: no-repeat; background-position: center;  background-size: cover; width: ' + w_h + '; height: ' + w_h + ';">';
     }
     else{
       if (link_url == ''){
-        new_card += '<div class="container" onclick="window.open(\'pages/works.html?name=' + encodeURIComponent(card_url) + '\',  \'_self\');" style="background-image: url(\'pages/' + card_url + '/card.png\'); background-repeat: no-repeat; background-position: center;  background-size: cover; width: ' + w_h + '; height: ' + w_h + ';">';
+        new_card += '<div class="container" onclick="window.open(\'pages/works.html?name=' + encodeURIComponent(card_url) + '\',  \'_self\');" style="background-image: url(\'pages/' + card_url + '/card.jpg\'); background-repeat: no-repeat; background-position: center;  background-size: cover; width: ' + w_h + '; height: ' + w_h + ';">';
       }
       else{
-        new_card += '<div class="container" onclick="window.open(\'' + link_url + '\',\'mywindow\');" style="background-image: url(\'pages/' + card_url + '/card.png\'); background-repeat: no-repeat; background-position: center;  background-size: cover; width: ' + w_h + '; height: ' + w_h + ';">';
+        new_card += '<div class="container" onclick="window.open(\'' + link_url + '\',\'mywindow\');" style="background-image: url(\'pages/' + card_url + '/card.jpg\'); background-repeat: no-repeat; background-position: center;  background-size: cover; width: ' + w_h + '; height: ' + w_h + ';">';
       }
     }
     new_card += '<div class="overlay">';
