@@ -7,6 +7,16 @@ body {
   box-sizing: border-box;
 }
 
+.myname{
+  font-size: 25px;
+  color: #7766aa;
+  font-family: verdana;
+  -webkit-user-select: none; /* Safari */        
+-moz-user-select: none; /* Firefox */
+-ms-user-select: none; /* IE10+/Edge */
+user-select: none; /* Standard */
+}
+
 .scrolling-wrapper-flexbox {
   display: flex;
   flex-wrap: nowrap;
@@ -20,7 +30,7 @@ body {
 }
 
 .card {
-  border: 2px solid $black;
+  border: 2px solid #000000;
   margin-right: 5px;
   background: #eeeeee;
 }
@@ -76,7 +86,7 @@ iframe {
 
 /* Add a color to the active/current link */
 .topnav a.active {
-  color: #5555ff;
+  color: #7766aa;
 }
 
 .categoryName {
@@ -97,6 +107,7 @@ iframe {
 
 .col-1 {width: 8.33%;}
 .col-2 {width: 16.66%;}
+.col-2-SP {width:17.20%;}
 .col-3 {width: 25%;}
 .col-4 {width: 33.33%;}
 .col-5 {width: 41.66%;}
@@ -110,8 +121,8 @@ iframe {
 
 [class*="col-"] {
   float: left;
-  padding: 15px;
-  padding-left: 8px;
+  padding: 0.5%;
+  padding-left: 8%;
 }
 
 .container {
@@ -122,8 +133,8 @@ iframe {
   background-color: black;
   background-size: cover;
   cursor: pointer;
-  -webkit-box-shadow: 0 0 5px #000;
-  box-shadow: 0 0 5px #000;
+  /*-webkit-box-shadow: 0 0 5px #000;*/
+  /*box-shadow: 0 0 5px #000;*/
 }
 
 .useless_card {
@@ -134,8 +145,8 @@ iframe {
   background-color: black;
   background-size: cover;
   cursor: pointer;
-  -webkit-box-shadow: 0 0 5px #000;
-  box-shadow: 0 0 5px #000;
+  /*-webkit-box-shadow: 0 0 5px #000;*/
+  /*box-shadow: 0 0 5px #000;*/
 }
 
 .overlay {
