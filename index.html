@@ -90,7 +90,7 @@
 		    aboutid.style.fontSize = "40px";
         var nameid = document.getElementById('name_div');
         nameid.parentNode.removeChild(nameid);
-        pad_left_val = '4%';
+        pad_left_val = '3.5%';
 
 		}
 
@@ -102,19 +102,19 @@
           to_create += create_card(sounds_name[i], sounds_desc[i], sounds_year[i], sounds_folder[i], sounds_link[i], w_h, 'sounds');
           to_create += '</div>';
         }
-        to_create += '<div class="' + col_val + ' style="padding-left: ' + pad_left_val + ';">';
+        to_create += '<div class="' + col_val + '" style="padding-left: ' + pad_left_val + ';">';
         to_create += create_card('Research Projects', '', '', 'cs', '-1', w_h, 'research');
         to_create += '</div>';
         for (i = 0; i < cs_name.length; i++){
-          to_create += '<div class="' + col_val + ' style="padding-left: ' + pad_left_val + ';">';
+          to_create += '<div class="' + col_val + '" style="padding-left: ' + pad_left_val + ';">';
           to_create += create_card(cs_name[i], cs_desc[i], cs_year[i], cs_folder[i], cs_link[i], w_h, 'research');
           to_create += '</div>';
         }
-        to_create += '<div class="' + col_val + ' style="padding-left: ' + pad_left_val + ';">';
+        to_create += '<div class="' + col_val + '" style="padding-left: ' + pad_left_val + ';">';
         to_create += create_card('Animations', '', '', 'fun', '-1', w_h, 'fun');
         to_create += '</div>';
         for (i = 0; i < fun_name.length; i++){
-          to_create += '<div class="' + col_val + ' style="padding-left: ' + pad_left_val + ';">';
+          to_create += '<div class="' + col_val + '" style="padding-left: ' + pad_left_val + ';">';
           to_create += create_card(fun_name[i], '', '', fun_folder[i], fun_link[i], w_h, 'fun');
           to_create += '</div>';
         }
