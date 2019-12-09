@@ -20,22 +20,22 @@
   <div id="card_div" style="overflow: auto;"></div>
 
   <div id="title_div" class='col-6'> <!-- Div for Title/Desc -->
-  	<h3 id="work_title" style="margin-left: 30px;"></h3>
-  	<p id="work_description" style="margin-left: 50px;"></div>
+  	<h3 id="work_title" style="margin-left: 30px; padding-top: 40px;"></h3>
+  	<p id="work_description" style="margin-left: 50px; padding-bottom: 100px; text-align: justify;"/></div>
 
   <div id="tech_div" class='col-6'> <!-- Div for Technical Details -->
   	<br><br>
-  	<p id="technical_specs"></p>
+  	<p id="technical_specs" style="padding-bottom: 100px;padding-top: 40px;"></p>
   </div>
 
-  <div class="content" style="padding-left: 50px; padding-right: 50px;">
+  <div class="content" style="padding-left: 50px; padding-right: 50px; padding-bottom: 100px;">
     <div id="image_grid" class="scrolling-wrapper-flexbox">
   	</div>
   </div>
 
-  <div id="soundcloud_viewer"></div>
+  <div id="soundcloud_viewer" style="padding-bottom: 100px;"></div>
 
-  <div id="pdf_viewer" style="padding-left: 10%; padding-right: 10%; padding-top: 15px;"></div>
+  <div id="pdf_viewer" style="padding-left: 10%; padding-right: 10%; padding-top: 15px; padding-bottom: 100px;"></div>
 
   <br>
 
@@ -101,6 +101,7 @@ var load_data = function(){
         document.getElementById("technical_specs").style.marginLeft = "50px";
         document.getElementById("technical_specs").style.marginRight = "50px";
         document.getElementById("image_grid").style.height = "800px";
+        document.getElementById("image_grid").style.paddingBottom = "300px";
         max_height = '800px';
     }
 
@@ -114,7 +115,8 @@ var load_data = function(){
 
     var technical_specs = document.getElementById("technical_specs");
     technical_specs.style.fontSize = font_size;
-    technical_specs.innerHTML = specs;
+    technical_specs.style.fontWeight = "300";
+    technical_specs.innerHTML = specs
 
     var image_grid = document.getElementById("image_grid");
     if (images.length > 0 ){
