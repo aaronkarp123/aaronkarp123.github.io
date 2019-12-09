@@ -119,6 +119,7 @@ var load_data = function(){
     technical_specs.innerHTML = specs
 
     var image_grid = document.getElementById("image_grid");
+    image_grid.style.maxHeight = max_height;
     if (images.length > 0 ){
       image_html = '';
       for (var i = 0; i < images.length; i++){
