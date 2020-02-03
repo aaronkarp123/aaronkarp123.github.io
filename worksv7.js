@@ -10,11 +10,11 @@ var other_wl = ['files/KarpThesis.pdf','https://soundcloud.com/hunter-brown-musi
 
 
 
-var sounds_name = ['風は渡る', 		'Give Space [I]',		'with in',			'Tare', 									'Traces', 						'Introduction', 	'Restrained Form'];
-var sounds_desc = ['Installation',	'Cello, Electronics',	'Installation',  	'String Quartet, 3 Sopranos, Reel-to-Reel', 'Animation Sound Design', 		'Fixed Media',		'Installation'];
-var sounds_year = ['2019',			'2019',					'2018',				'2018',										'2018',							'2018',				'2017'];
-var sounds_folder = ['kaze',		'givespace1',			'within', 			'tare', 									'traces', 						'introduction',		'restrained_form'];
-var sounds_link = ['',				'',						'', 					'', 									'https://youtu.be/U1ws99j5U8Q',	'', 				''];
+var sounds_name = ['Read / Write', 	'風は渡る', 		'Give Space [I]',		'with in',			'Tare', 									'Traces', 						'Introduction', 	'Restrained Form'];
+var sounds_desc = ['Installation',	'Installation',	'Cello, Electronics',	'Installation',  	'String Quartet, 3 Sopranos, Reel-to-Reel', 'Animation Sound Design', 		'Fixed Media',		'Installation'];
+var sounds_year = ['2020',			'2019',			'2019',					'2018',				'2018',										'2018',							'2018',				'2017'];
+var sounds_folder = ['read_write',	'kaze',		'givespace1',			'within', 			'tare', 									'traces', 						'introduction',		'restrained_form'];
+var sounds_link = ['',				'',				'',						'', 					'', 									'https://youtu.be/U1ws99j5U8Q',	'', 				''];
 
 var cs_name = ['Prying Ears: Master\'s Thesis',								'HaptEQ', 														'Audio-Only Editing',											'Github'];
 var cs_desc = ['A Critical Response to Mass Audio Surveillance',				'A collaborative tool for visually impaired audio producers', 	'An Approach to Audio-Only Editing for Visually Impaired Seniors','Open-source code'];
