@@ -5,7 +5,7 @@ description += ' I\'ve investigated those questions through the lenses of comput
 description += ''
 
 var specs = '~~Highlights~~<br>1995: Born in Lexington, Kentucky<br>2009: Bar mitzvah<br>2017: B.S. in Music and Computer Science, Northwestern University<br>2019: M.A. in Digital Musics, Dartmouth College<br>'
-specs += 'Present: <a href="https://www.hluce.org/programs/luce-scholars/">Luce Scholars Program</a><br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspPostgraduate Researcher, <a href="https://www.kyoto-art.ac.jp/en/">Kyoto University of Art and Design</a><br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspAssistant, <a href="https://www.lyt.jp/">Lyota Yagi</a><br><br>';
+specs += 'Present: <a href="https://www.hluce.org/programs/luce-scholars/">Luce Scholars Program</a><br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspPostgraduate Researcher, <a href="https://www.kyoto-art.ac.jp/en/">Kyoto University of Art and Design</a><br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspAssistant, <a href="https://www.lyt.jp/">Lyota Yagi</a><br><br><br>Contact: aaronkarp123 [at] gmail [dot] com';
 
 var pdf = '../files/AaronKarpCV.pdf';
 
