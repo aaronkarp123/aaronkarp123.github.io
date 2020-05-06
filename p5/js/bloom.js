@@ -1,4 +1,4 @@
-var ratio = 0.03;
+var ratio;
 var start_offset, start_offset_dif;
 var xdif, ydif;
 var ratio_dif;
@@ -21,8 +21,9 @@ function setup() {
   boundingVal = Math.min(xdif, ydif);
   size = (Math.random() * (boundingVal - 50)) + 50;
   size_dif = (Math.random() - 0.5) / 2.0;
+  ratio = (Math.random() * 0.1 + 0.01);
   ratio_dif = (Math.random() - 0.5) / 100000.0;
-  co = (Math.random() + 0.1 * 5);
+  co = (Math.random() * 3) + 0.1;
   co_dif = (Math.random() - 0.5) / 10000.0;
   start_offset = Math.random() * 360;
   start_offset_dif = (Math.random() / 5.0 + 0.2) / 20.0;
@@ -63,8 +64,10 @@ function updateColors(){
 }
 
 function updateRatio(){
-  if (rMatched && Math.random() < 0.0004){
-    targetR = (Math.random() - 0.5) / 100000.0;
+  if (rMatched && Math.random() < 0.0005){
+    targetR = (Math.random() - 0.5) / 100000.0; 
+    if (ratio > 0.1)
+      targetR = -1 * Math.abs(targetR);
     targetRDif = (targetR - ratio_dif) / (Math.random() * 4000 + 500);
     rMatched = false;
   }
@@ -78,22 +81,27 @@ function updateRatio(){
     }
   }
 
-  if (ratio + ratio_dif > 1.0){
+  if (ratio + ratio_dif >= 0.2){
     ratio_dif *= -1;
     targetR = -1 * Math.abs(targetR);
     targetRDif = (targetR - ratio_dif) / 1000.0;
   }
-  if(ratio + ratio_dif < 0.01){
+  if(ratio + ratio_dif <= 0.01){
     ratio_dif *= -1;
     targetR = Math.abs(targetR);
     targetRDif = (targetR - ratio_dif) / 1000.0;
   }
   ratio += ratio_dif;
+  if (ratio >= 0.1 && ratio_dif <= 0)
+    ratio += ratio_dif *(ratio*10)* (ratio*10);
 }
 
 function updateCo(){
-  if (coMatched && Math.random() < 0.0004){
+  if (coMatched && Math.random() < 0.0006){
     targetCo = (Math.random() - 0.5) / 10000.0;
+    if (targetCo < 0){
+      targetCo *= 4;
+    }
     targetCoDif = (targetCo - co_dif) / (Math.random() * 4000 + 500);
     coMatched = false;
   }
@@ -106,7 +114,7 @@ function updateCo(){
       console.log("CO: " + co + "  CO_DIF: " + co_dif);
     }
   }
-  if (co + co_dif >= 10){
+  if (co + co_dif >= 6){
     co_dif *= -1;
     targetCo = -1 * Math.abs(targetCo);
     targetCoDif = (targetCo - co_dif) / 1000.0;
@@ -120,7 +128,7 @@ function updateCo(){
 }
 
 function updateSize(){
-  if (sMatched && Math.random() < 0.0006){
+  if (sMatched && Math.random() < 0.0004){
     targetS = (Math.random() - 0.5) / 2.0;
     targetSDif = (targetS - size_dif) /  (Math.random() * 4000 + 500);
     sMatched = false;
@@ -149,7 +157,7 @@ size += size_dif;
 }
 
 function udpateOffset(){
-  if (Math.random() < 0.0003){
+  if (Math.random() < 0.0002){
     start_offset_dif = (Math.random() / 5.0 + 0.2) / 20.0;
     console.log("START OFFSET DIF: " + start_offset_dif);
   }
@@ -185,4 +193,10 @@ function draw() {
     theta += theta_incr;
   }
   updateAll();
+
+  if (keyIsPressed == true) {
+    console.log("Ratio: " + ratio + "  ratio_dif: " + ratio_dif + "\n" + 
+      "Coef: " + co + "  Coef_dif:" + co_dif + "\n" + 
+      "Size: " + size + "  size_dif: " + size_dif);
+  }
 }
