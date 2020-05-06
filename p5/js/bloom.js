@@ -37,7 +37,7 @@ function setup() {
   targetS = size_dif;
   targetCo = co_dif;
 
-	background(220);
+  background(220);
   noStroke();
 }
 
@@ -70,16 +70,24 @@ function updateRatio(){
   }
   if (!rMatched){
     if(Math.abs(ratio_dif - targetR) > Math.abs(targetRDif)*2){
-    ratio_dif += targetRDif;
+      ratio_dif += targetRDif;
+    }
+    else{
+      rMatched = true;
+      console.log("RATIO: " + ratio + "  RATIO_DIF: " + ratio_dif);
+    }
   }
-  else{
-    rMatched = true;
-    console.log("RATIO: " + ratio + "  RATIO_DIF: " + ratio_dif);
-  }
-}
 
-  if (ratio + ratio_dif > 1.0  || ratio + ratio_dif < 0.01){
+  if (ratio + ratio_dif > 1.0){
     ratio_dif *= -1;
+    if (targetR >= 1.0)
+      targetR *= -1;
+    targetRDif = (targetR - ratio_dif) / 1000.0;
+  }
+  if(ratio + ratio_dif < 0.01){
+    ratio_dif *= -1;
+    if (targetR <= 0)
+      targetR *= -1;
     targetRDif = (targetR - ratio_dif) / 1000.0;
   }
   ratio += ratio_dif;
@@ -92,16 +100,25 @@ function updateCo(){
     coMatched = false;
   }
   if(!coMatched){
-     if(Math.abs(co_dif - targetCo) > Math.abs(targetCoDif)*2){
+   if(Math.abs(co_dif - targetCo) > Math.abs(targetCoDif)*2){
     co_dif += targetCoDif;
   }
-  else{
-    coMatched= true;
-    console.log("CO: " + co + "  CO_DIF: " + co_dif);
+    else{
+      coMatched= true;
+      console.log("CO: " + co + "  CO_DIF: " + co_dif);
+    }
   }
-}
-  if (co + co_dif >= 10  || co + co_dif < 0.001){
+  if (co + co_dif >= 10){
     co_dif *= -1;
+    if (targetCo >= 10){
+      targetCo *= -1;
+    }
+    targetCoDif = (targetCo - co_dif) / 1000.0;
+  } 
+  if(co + co_dif < 0.001){
+    co_dif *= -1;
+    if (targetCo < 0)
+      targetCo *= -1;
     targetCoDif = (targetCo - co_dif) / 1000.0;
   }
   co += co_dif;
@@ -114,26 +131,35 @@ function updateSize(){
     sMatched = false;
   }
   if (!sMatched){
-     if(Math.abs(size_dif - targetS) > Math.abs(targetSDif)*2){
-      size_dif += targetSDif;
-    }
-    else{
-      sMatched = true;
-      console.log("SIZE: " + size + "  SIZE_DIF: " + size_dif);
-    }
-    }
-  if (size + size_dif >= boundingVal  || size + size_dif < 50){
-    size_dif *= -1;
-    if(size + size_dif < 50)
-      size_dif = Math.abs(size_dif);
-    targetSDif = (targetS - size_dif) / 1000.0;
+   if(Math.abs(size_dif - targetS) > Math.abs(targetSDif)*2){
+    size_dif += targetSDif;
   }
-  size += size_dif;
+  else{
+    console.log("SIZE: " + size + "  SIZE_DIF: " + size_dif);
+    sMatched = true;
+  }
+}
+if (size + size_dif >= boundingVal){
+  size_dif *= -1;
+  if (targetS >= boundingVal){
+    targetS *= -1;
+  }
+  targetSDif = (targetS - size_dif) / 1000.0;
+}
+if(size + size_dif < 50){
+  size_dif *= -1;
+  if (targetS <= 0){
+    targetS *= -1;
+  }
+  targetSDif = (targetS - size_dif) / 1000.0;
+}
+size += size_dif;
 }
 
 function udpateOffset(){
-  if (Math.random() < 0.0004){
+  if (Math.random() < 0.0003){
     start_offset_dif = (Math.random() / 5.0 + 0.2) / 20.0;
+    console.log("START OFFSET DIF: " + start_offset_dif);
   }
   start_offset + start_offset_dif;
 }
