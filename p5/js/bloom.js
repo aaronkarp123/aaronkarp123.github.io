@@ -25,7 +25,7 @@ function setup() {
   co = (Math.random() + 0.1 * 5);
   co_dif = (Math.random() - 0.5) / 10000.0;
   start_offset = Math.random() * 360;
-  start_offset_dif = (Math.random() / 5.0 + 0.2) / 5.0;
+  start_offset_dif = (Math.random() / 5.0 + 0.2) / 20.0;
   r = Math.random() * 255;
   g = Math.random() * 255;
   b = Math.random() * 255;
@@ -124,6 +124,8 @@ function updateSize(){
     }
   if (size + size_dif >= boundingVal  || size + size_dif < 50){
     size_dif *= -1;
+    if(size + size_dif < 50)
+      size_dif = Math.abs(size_dif);
     targetSDif = (targetS - size_dif) / 1000.0;
   }
   size += size_dif;
@@ -131,7 +133,7 @@ function updateSize(){
 
 function udpateOffset(){
   if (Math.random() < 0.0004){
-    start_offset_dif = (Math.random() / 5.0 + 0.2) / 5.0;
+    start_offset_dif = (Math.random() / 5.0 + 0.2) / 20.0;
   }
   start_offset + start_offset_dif;
 }
