@@ -80,14 +80,12 @@ function updateRatio(){
 
   if (ratio + ratio_dif > 1.0){
     ratio_dif *= -1;
-    if (targetR >= 1.0)
-      targetR *= -1;
+    targetR = -1 * Math.abs(targetR);
     targetRDif = (targetR - ratio_dif) / 1000.0;
   }
   if(ratio + ratio_dif < 0.01){
     ratio_dif *= -1;
-    if (targetR <= 0)
-      targetR *= -1;
+    targetR = Math.abs(targetR);
     targetRDif = (targetR - ratio_dif) / 1000.0;
   }
   ratio += ratio_dif;
@@ -110,24 +108,21 @@ function updateCo(){
   }
   if (co + co_dif >= 10){
     co_dif *= -1;
-    if (targetCo >= 10){
-      targetCo *= -1;
-    }
+    targetCo = -1 * Math.abs(targetCo);
     targetCoDif = (targetCo - co_dif) / 1000.0;
   } 
   if(co + co_dif < 0.001){
     co_dif *= -1;
-    if (targetCo < 0)
-      targetCo *= -1;
+    targetCo = Math.abs(targetCo);
     targetCoDif = (targetCo - co_dif) / 1000.0;
   }
   co += co_dif;
 }
 
 function updateSize(){
-  if (sMatched && Math.random() < 0.0004){
+  if (sMatched && Math.random() < 0.0006){
     targetS = (Math.random() - 0.5) / 2.0;
-    targetSDif = (targetS - size_dif) /  (Math.random() * 6000 + 500);
+    targetSDif = (targetS - size_dif) /  (Math.random() * 4000 + 500);
     sMatched = false;
   }
   if (!sMatched){
@@ -139,18 +134,15 @@ function updateSize(){
     sMatched = true;
   }
 }
+//console.log("Set: " + sMatched + " \nSize: " + size + " \nsize_dif:  " + size_dif + " \ntarget_dif: " + targetS + " \ntarget_dif_acc: " + targetSDif);
 if (size + size_dif >= boundingVal){
   size_dif *= -1;
-  if (targetS >= boundingVal){
-    targetS *= -1;
-  }
+  targetS = -1 * Math.abs(targetS);
   targetSDif = (targetS - size_dif) / 1000.0;
 }
-if(size + size_dif < 50){
+else if(size + size_dif < 50){
   size_dif *= -1;
-  if (targetS <= 0){
-    targetS *= -1;
-  }
+  targetS = Math.abs(targetS);
   targetSDif = (targetS - size_dif) / 1000.0;
 }
 size += size_dif;
