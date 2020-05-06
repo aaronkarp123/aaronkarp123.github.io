@@ -65,7 +65,7 @@ function updateColors(){
 function updateRatio(){
   if (rMatched && Math.random() < 0.0004){
     targetR = (Math.random() - 0.5) / 100000.0;
-    targetRDif = (targetR - ratio_dif) / (Math.random() * 6000 + 500);
+    targetRDif = (targetR - ratio_dif) / (Math.random() * 4000 + 500);
     rMatched = false;
   }
   if (!rMatched){
@@ -94,7 +94,7 @@ function updateRatio(){
 function updateCo(){
   if (coMatched && Math.random() < 0.0004){
     targetCo = (Math.random() - 0.5) / 10000.0;
-    targetCoDif = (targetCo - co_dif) / (Math.random() * 6000 + 500);
+    targetCoDif = (targetCo - co_dif) / (Math.random() * 4000 + 500);
     coMatched = false;
   }
   if(!coMatched){
