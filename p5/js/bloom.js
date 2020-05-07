@@ -128,7 +128,7 @@ function updateCo(){
 }
 
 function updateSize(){
-  if (sMatched && Math.random() < 0.0004){
+  if (sMatched && Math.random() < 0.0005){
     targetS = (Math.random() - 0.5) / 2.0;
     targetSDif = (targetS - size_dif) /  (Math.random() * 4000 + 500);
     sMatched = false;
