@@ -6,7 +6,7 @@ description += '「風は渡る」 was a site-specific installation for an exhib
 
 var specs = 'Form: Installation<br><br>Completed: 2019<br><br>Materials: Stained Glass, Bells, Wood, Shouji<br>ステンドグラス、風鈴、障子紙、サイズ可変<br><br>Components: Glass Chimes x 3, Bell Chimes x 4<br><br>Installed: November, 2019, 和中湾 (Wachu-an) <br>Kyoto, Japan';
 
-var pdf = 'https://aaronkarp123.github.io/files/kazeprogram.pdf';
+var pdf = 'https://aaronmkarp.com/files/kazeprogram.pdf';
 
 var soundcloud_link = '';
 
