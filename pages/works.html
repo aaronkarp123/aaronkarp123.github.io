@@ -35,12 +35,12 @@
 
   <div id="soundcloud_viewer" style="padding-bottom: 100px;"></div>
 
-  <div id="pdf_viewer" style="padding-left: 10%; padding-right: 10%; padding-top: 15px; padding-bottom: 100px;"></div>
-
+  
   <br>
 
   <div id = "embedded_video" style="padding-left: 50px; padding-right: 50px; position:relative; padding-top:56.25%; clear:both;">
   </div>
+  <div id="pdf_viewer" style="padding-left: 10%; padding-right: 10%; padding-top: 15px; padding-bottom: 100px;"></div>
   <br>
 
 <script type="text/javascript">
@@ -139,6 +139,14 @@ var load_data = function(){
       soundcloud_viewer.parentNode.removeChild(soundcloud_viewer);
     }
 
+    var embedded_video = document.getElementById('embedded_video');
+    if (video != ''){
+      embedded_video.innerHTML =     '<iframe frameborder="0" allowfullscreen style="position:absolute;top:0;left:10%;width:100%;height:100%;"src=" ' + video + ' "></iframe>';
+    }
+    else{
+      embedded_video.parentNode.removeChild(embedded_video);
+    }
+
     var pdf_viewer = document.getElementById("pdf_viewer");
     if (pdf != ''){
       if (pdf.includes('pdf'))
@@ -150,13 +158,7 @@ var load_data = function(){
       pdf_viewer.parentNode.removeChild(pdf_viewer);
     }
 
-    var embedded_video = document.getElementById('embedded_video');
-    if (video != ''){
-      embedded_video.innerHTML =     '<iframe frameborder="0" allowfullscreen style="position:absolute;top:0;left:10%;width:100%;height:100%;"src=" ' + video + ' "></iframe>';
-    }
-    else{
-      embedded_video.parentNode.removeChild(embedded_video);
-    }
+    
 
   };
 
