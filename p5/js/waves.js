@@ -31,7 +31,7 @@ function setup() {
 }
 
 function draw_line(seed, col, y_off, x_off){
-  let ratio = windowWidth / (windowWidth * resolution);
+  let ratio = 1.0 / resolution;
   let prev_x = -x_off;
   let prev_y = noise(seed + frame_count*resolution) * height - height/2 + y_off;
   let cur_x = 0;
@@ -39,7 +39,7 @@ function draw_line(seed, col, y_off, x_off){
   stroke(col);
   strokeWeight(10);
   for (var i = 1; i <= windowWidth * resolution + 1; i++){
-    cur_x = prev_x + i*ratio;
+    cur_x = prev_x + i*ratio + 50;
     cur_y = noise(seed + frame_count*resolution + i) * height - height/2 + y_off;
     line(prev_x, prev_y, cur_x, cur_y);
     prev_x = cur_x;
