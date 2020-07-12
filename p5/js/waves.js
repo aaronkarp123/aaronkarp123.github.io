@@ -109,6 +109,10 @@ function adjust_height(){
 }
 
 function adjust_color(){
+	if (Math.random() < 0.0001){
+		back_c_v = [Math.random(-0.0001, 0.0001)/20,Math.random(-0.0001, 0.0001)/20,Math.random(-0.0001, 0.0001)/20];
+		console.log("new color deltas");
+	}
   for (var i = 0; i < 3; i++){
     if (back_c[i] + back_c_v[i] >= 255 || back_c[i] + back_c_v[i] <= 0)
       back_c_v[i] *= -1;
