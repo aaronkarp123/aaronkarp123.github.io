@@ -5,7 +5,7 @@
   <title>Aaron Karp</title>
   <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Lato:300" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-<link rel="stylesheet" href="../stylesheetv4.css">
+<link rel="stylesheet" href="../stylesheetv5.css">
   <script type="text/javascript" src="../worksv9.js"></script>
   <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 
@@ -123,7 +123,7 @@ var load_data = function(){
     if (images.length > 0 ){
       image_html = '';
       for (var i = 0; i < images.length; i++){
-        image_html += '<img class="card slide_img" style="max-height: ' + max_height + ';" src="' + folder_name + '/' + images[i] + '">'
+        image_html += '<img class="slide_img" style="max-height: ' + max_height + ';" src="' + folder_name + '/' + images[i] + '">'
       }
       image_grid.innerHTML = image_html;
     }
