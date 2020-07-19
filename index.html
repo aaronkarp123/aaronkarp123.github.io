@@ -5,14 +5,14 @@
   <title>Aaron Karp</title>
   <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Lato:300" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-<link rel="stylesheet" href="./stylesheetv5.css">
+<link rel="stylesheet" href="./stylesheetv6.css">
   <script type="text/javascript" src="worksv9.js"></script>
   <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 
   <link rel="shortcut icon" href="files/Favicon.png" />
 
 </head>
-<div class="topnav" style="font-family: Lucida Sans Unicode, Lucida Grande, sans-serif;">
+<div class="topnav" style="font-family: Lucida Sans Unicode, Lucida Grande, sans-serif;" tabidx="0" >
   <a id="homeid" class="active" href="">Home</a>
   <a id="aboutid" href="pages/works.html?name=aaron">About</a>
 </div>
@@ -42,14 +42,14 @@
     }
 
     if (link_url == '-1'){
-      new_card += '<div class="useless_card" style="background-image: url(\'pages/' + card_url + '/card.jpg\'); background-repeat: no-repeat; background-position: center;">';
+      new_card += '<div tabindex = "' + 0 + '" class="useless_card" style="background-image: url(\'pages/' + card_url + '/card.jpg\'); background-repeat: no-repeat; background-position: center;">';
     }
     else{
       if (link_url == ''){
-        new_card += '<div class="container" onclick="window.open(\'pages/works.html?name=' + encodeURIComponent(card_url) + '\',  \'_self\');" style="background-image: url(\'pages/' + card_url + '/card.jpg\'); background-repeat: no-repeat; background-position: center;  ">';
+        new_card += '<div tabindex = "' + 0 + '" class="container" onclick="window.open(\'pages/works.html?name=' + encodeURIComponent(card_url) + '\',  \'_self\');" style="background-image: url(\'pages/' + card_url + '/card.jpg\'); background-repeat: no-repeat; background-position: center;  ">';
       }
       else{
-        new_card += '<div class="container" onclick="window.open(\'' + link_url + '\',\'mywindow\');" style="background-image: url(\'pages/' + card_url + '/card.jpg\'); background-repeat: no-repeat; background-position: center;">';
+        new_card += '<div tabindex = "' + 0 + '" class="container" onclick="window.open(\'' + link_url + '\',\'mywindow\');" style="background-image: url(\'pages/' + card_url + '/card.jpg\'); background-repeat: no-repeat; background-position: center;">';
       }
     }
     new_card += '<div class="overlay" style="background: ' + cat_col + ';">';
@@ -89,6 +89,7 @@
         pad_left_val = '2.0%';
 
     }
+
         let opening_text = '<li class="cards_item"> ';
         let closing_text = '</li>';
 
@@ -133,6 +134,18 @@
           to_add.innerHTML = to_create;
           e.appendChild(to_add);
         }
+      }
+
+      var x = document.getElementsByClassName("container");  //container
+      var i;
+      console.log(x);
+      for (i = 0; i < x.length; i++){
+      	x[i].addEventListener("keyup", function(event) {
+      	event.preventDefault();
+      	if (event.keyCode === 13) {
+      		this.click();
+      	}
+      });
       }
 
 </script>
