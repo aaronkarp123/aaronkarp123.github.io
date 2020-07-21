@@ -1,5 +1,6 @@
 let frame_count = 0;
-let resolution = 0.002;
+//let resolution = 0.002;
+let resolution;
 let v_resolution = 0.5;
 let seeds = [];
 let xoffsets = [];
@@ -23,6 +24,8 @@ let min_wdur = 1;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  resolution = 2 / windowWidth;
+  console.log(resolution)
   for (var i = -6; i <= windowHeight * v_resolution + 3; i++){
     seeds.push(random(100000));
     xoffsets.push(random(windowWidth/2));
@@ -133,4 +136,10 @@ function draw() {
       draw_line(seeds[r], back_c, r * ratio, xoffsets[r]);
   }
 
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+  resolution = 2 / windowWidth;
+  
 }
