@@ -2,6 +2,10 @@
 <html lang="en" >
 <head>
   <meta charset="UTF-8">
+  <meta name="description" content="Aaron Karp: composer, sound artist, computer scientist. Click to hear the music, read the research, say hello.">
+  <meta name="author" content="Aaron Karp">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="Aaron Karp, Music, Computer Science, Sound Art, Installation Art, Composition, Research">
   <title>Aaron Karp</title>
   <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Lato:300" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
@@ -20,7 +24,7 @@
   <ul class="cards" id="card_ul" style="overflow: auto; position:absolute;">
 </ul>
   <div id="name_div" class="myname" style="position:relative; margin-left: 1.5rem; width:1rem">
-    <p><br>A<br>A<br>R<br>O<br>N<br><br>K<br>A<br>R<br>P</p>
+    <h1 style="font-size: 1.4rem; font-weight:normal;"><br>A<br>A<br>R<br>O<br>N<br><br>K<br>A<br>R<br>P</h1>=
   </div>
   
 <script type="text/javascript">
@@ -58,7 +62,6 @@
     new_card += '<p>' + name + '</p><hr></div>';
     new_card += '<div class = "items price">';
     new_card += '<p class="new">' + desc + '</p>';
-    //console.log(desc);
     new_card += '<p class="new">' + yr + '</p></div>';
     new_card += '</div></div>';
     return new_card;
@@ -138,7 +141,6 @@
 
       var x = document.getElementsByClassName("container");  //container
       var i;
-      console.log(x);
       for (i = 0; i < x.length; i++){
       	x[i].addEventListener("keyup", function(event) {
       	event.preventDefault();
