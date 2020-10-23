@@ -1,0 +1,25 @@
+# Site Settings
+locale                   : "en-US"
+title                    : "Aaron M Karp / Homepage"
+title_separator          : "-"
+name                     : &name "Aaron Karp"
+description              : &description "composer, sound artist, computer scientist. Click to hear the music, read the research, say hello."
+url                      : https://www.aaronmkarp.com # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
+baseurl                  : "" # the subpath of your site, e.g. "/blog"
+
+# Plugins
+plugins:
+  - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll-gist
+  - jekyll-feed
+  - jekyll-redirect-from
+  - jekyll-seo-tag
+# mimic GitHub Pages with --safe
+whitelist:
+  - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll-gist
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jemoji
