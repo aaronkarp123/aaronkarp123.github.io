@@ -1,7 +1,7 @@
 var title = 'Aaron Karp';
 
-var description = 'I\'m a sound artist, composer, and computer scientist currently living in Kyoto, Japan. My interests generally follow questions of technology\'s ability to mediate or hinder human cooperation and coexistence.';
-description += ' I\'ve investigated those questions through the lenses of computer science research, music compositions, installation art pieces, and combinations of all three.'
+var description = 'I\'m a sound artist, composer, and computer scientist currently living in Boston, Massachusetts. My primary artistic interest is exploring living systems in the myriad forms they can take.';
+description += ' A system can be anything from a single physical object to a collaborative musical performance to a piece of software. These systems can be living in their association with life and/or death. I\'ve investigated such systems, as well as questions of technology\'s ability to mediate or hinder human cooperation and coexistence, through the lenses of computer science research, music compositions, installation art pieces, and combinations of all three.'
 description += ''
 
 var specs = '~~Highlights~~<br>1995: Born in Lexington, Kentucky<br>2009: Bar mitzvah<br>2017: B.S. in Music and Computer Science, Northwestern University<br>2019: M.A. in Digital Musics, Dartmouth College<br>'
