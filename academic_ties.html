@@ -190,7 +190,7 @@
     if (desc != ''){
       desc += "<br>";
     }
-    document.getElementById('description').innerHTML = "<b>" + link['E 1'] + "</b>, " + link.Current + " " + link.Type + " at <b>"+ link['E 2'] +"</b><br>" + desc + "<a href='"+link.URL+"' target='_blank'>Reference Link</a><br>Information last updated: " + link['Last Updated'].split('T')[0];
+    document.getElementById('description').innerHTML = "<b>" + link['E 1'] + "</b>, (" + link.Current + ") " + link.Type + " -- <b>"+ link['E 2'] +"</b><br>" + desc + "<a href='"+link.URL+"' target='_blank'>Reference Link</a><br>Information last updated: " + link['Last Updated'].split('T')[0];
     document.getElementById('description').style.display = 'block';
     document.getElementById('description').style.position = 'absolute';
     currentLink = link;
