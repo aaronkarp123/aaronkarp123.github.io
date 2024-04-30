@@ -1,7 +1,7 @@
 <head>
   <style> body { margin: 0; } </style>
 
-  <script src="//unpkg.com/force-graph"></script>
+  <script src="https://unpkg.com/force-graph/dist/force-graph.min.js"></script>
   <!--<script src="../../dist/force-graph.js"></script>-->
 </head>
 
@@ -9,13 +9,15 @@
 <div id="graph"></div>
 
 <script>
-  fetch('Academic_Ties.json').then(res => res.json()).then(data => {
+  fetch('https://raw.githubusercontent.com/aaronkarp123/aaronkarp123.github.io/master/Academic_Ties.json').then(res => res.json()).then(data => {
     const elem = document.getElementById('graph');
+
+    console.log(data);
 
     const Graph = ForceGraph()(elem)
       .graphData(data)
-      .nodeLabel('id')
-      .nodeAutoColorBy('group')
+      .nodeLabel('Name')
+      .nodeAutoColorBy('Type')
       .linkDirectionalParticles(2)
       .linkDirectionalParticleWidth(1.4)
       .onNodeClick(node => {
