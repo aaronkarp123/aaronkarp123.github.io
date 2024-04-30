@@ -69,6 +69,7 @@
       .nodeLabel('Name')
       .nodeAutoColorBy('Type')
       .nodeVal('Value')
+      .cooldownTicks(50) 
       .onBackgroundClick(clk=>{document.getElementById('description').style.display = 'none';})
       .linkDirectionalParticles(2)
       .linkDirectionalParticleWidth(1.4)
@@ -76,9 +77,13 @@
       .onNodeClick(node => {
         focus_on_node(node);
       })
+      .onNodeDrag(node => {
+        num_anim_frames = max_anim_frames;
+      })
       .onLinkClick(link => {
         focus_on_link(link);
       })
+      .onEngineStop(() => {Graph.zoomToFit(800, 50); Graph.cooldownTicks(300);})
       .onRenderFramePost(tck => {
         if (currentType == 0){
           var cur_coord = Graph.graph2ScreenCoords(currentNode.x, currentNode.y);
@@ -146,8 +151,6 @@
         ctx.restore();
       });
 
-
-
   });
 
   function focus_on_node(node){
@@ -202,6 +205,7 @@
   //Call back for when user selects an option
   function onSelect(d) {
       focus_on_node(d);
+      //onsubmit="document.body.style.zoom='100%'";
   }
 
   //Setup and render the autocomplete
@@ -215,6 +219,11 @@
               .onSelected(onSelect)
               .render();
   }
+
+
+  
+
+
 
 </script>
 </body>
