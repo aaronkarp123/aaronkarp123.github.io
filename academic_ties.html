@@ -2,29 +2,201 @@
   <style> body { margin: 0; } </style>
 
   <script src="https://unpkg.com/force-graph/dist/force-graph.min.js"></script>
-  <!--<script src="../../dist/force-graph.js"></script>-->
+  <script src="https://unpkg.com/force-graph/dist/d3-quadtree"></script>
+  <script src="https://unpkg.com/force-graph/dist/d3-force"></script>
+  <script type="text/javascript" src="autocomplete.js"></script>
+  <script type="text/javascript" src="d3.min.js"></script>
+  <link rel="stylesheet" href="searchStyle.css"/>
+
 </head>
 
 <body>
+  <div id="searchbar" style="width:100%; height:10%;"></div>
+  <div id="formlink"  style="width:100%; height:5%; font-size: 15px; margin-left: 5%;">This site needs your help! Want to add a node or a connection, or make a correction? Please use <a href="https://www.google.com" target="_blank">this link</a>.</div>
+
 <div id="graph"></div>
+  <div id="description" style="width:auto; max-width: 35%; height:auto; padding: 10px; box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset; display: none;">ASDASDDS</div>
+
+
 
 <script>
+  var Graph;
+  var currentNode;
+  var currentLink;
+  var currentType;
+  var num_anim_frames = 0;
+  var max_anim_frames = 250;
+
   fetch('https://raw.githubusercontent.com/aaronkarp123/aaronkarp123.github.io/master/Academic_Ties.json').then(res => res.json()).then(data => {
     const elem = document.getElementById('graph');
 
-    console.log(data);
+    for (let i = 0; i < data['nodes'].length; i++){
+      let node = data['nodes'][i];
+      if (node['Type'] == 'Educational Institution'){
+        node['Value'] = 1.0;
+      }
+      else if (node['Type'] == 'Company'){
+        node['Value'] = 1.0;
+      }
+      else{
+        node['Value'] = 0.3;
+      }
+      currentNode = node;
+    }
 
-    const Graph = ForceGraph()(elem)
+    currentLink = data['links'][0]
+
+    Graph = ForceGraph()(elem)
       .graphData(data)
       .nodeLabel('Name')
       .nodeAutoColorBy('Type')
+      .nodeVal('Value')
+      .onBackgroundClick(clk=>{document.getElementById('description').style.display = 'none';})
       .linkDirectionalParticles(2)
       .linkDirectionalParticleWidth(1.4)
+      .linkAutoColorBy(d => d.Type)
       .onNodeClick(node => {
-        // Center/zoom on node
-        Graph.centerAt(node.x, node.y, 1000);
-        Graph.zoom(8, 2000);
+        focus_on_node(node);
+      })
+      .onLinkClick(link => {
+        focus_on_link(link);
+      })
+      .onRenderFramePost(tck => {
+        if (currentType == 0){
+          var cur_coord = Graph.graph2ScreenCoords(currentNode.x, currentNode.y);
+          if (document.getElementById('description').style.display != 'none' && num_anim_frames > 0){
+            document.getElementById('description').style.left =  cur_coord['x'] - currentNode.Value*10.0;
+            document.getElementById('description').style.top =  cur_coord['y'] - currentNode.Value*10.0;
+            num_anim_frames -= 1;
+          }
+        }
+        else{
+          var cur_coord = Graph.graph2ScreenCoords(currentLink.source.x, currentLink.source.y);
+          if (document.getElementById('description').style.display != 'none' && num_anim_frames > 0){
+            document.getElementById('description').style.left =  cur_coord['x'];
+            document.getElementById('description').style.top =  cur_coord['y'];
+            num_anim_frames -= 1;
+          }
+        }
+      })
+      .linkCanvasObjectMode(() => 'after')
+      .linkCanvasObject((link, ctx) => {
+        const MAX_FONT_SIZE = 4;
+        const LABEL_NODE_MARGIN = Graph.nodeRelSize() * 1.5;
+
+        const start = link.source;
+        const end = link.target;
+
+        // ignore unbound links
+        if (typeof start !== 'object' || typeof end !== 'object') return;
+
+        // calculate label positioning
+        const textPos = Object.assign(...['x', 'y'].map(c => ({
+          [c]: start[c] + (end[c] - start[c]) / 2 // calc middle point
+        })));
+
+        const relLink = { x: end.x - start.x, y: end.y - start.y };
+
+        const maxTextLength = Math.sqrt(Math.pow(relLink.x, 2) + Math.pow(relLink.y, 2)) - LABEL_NODE_MARGIN * 2;
+
+        let textAngle = Math.atan2(relLink.y, relLink.x);
+        // maintain label vertical orientation for legibility
+        if (textAngle > Math.PI / 2) textAngle = -(Math.PI - textAngle);
+        if (textAngle < -Math.PI / 2) textAngle = -(-Math.PI - textAngle);
+
+        const label = `${link.Type}`;
+
+        // estimate fontSize to fit in link length
+        ctx.font = '1px Sans-Serif';
+        const fontSize = Math.min(MAX_FONT_SIZE, maxTextLength / ctx.measureText(label).width);
+        ctx.font = `${fontSize}px Sans-Serif`;
+        const textWidth = ctx.measureText(label).width;
+        const bckgDimensions = [textWidth, fontSize].map(n => n + fontSize * 0.2); // some padding
+
+        // draw text label (with background rect)
+        ctx.save();
+        ctx.translate(textPos.x, textPos.y);
+        ctx.rotate(textAngle);
+
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+        ctx.fillRect(- bckgDimensions[0] / 2, - bckgDimensions[1] / 2, ...bckgDimensions);
+
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillStyle = 'darkgrey';
+        ctx.fillText(label, 0, 0);
+        ctx.restore();
       });
+
+
+
   });
+
+  function focus_on_node(node){
+    var node;
+    var nodes = Graph.graphData()['nodes'];
+    for (let i = 0; i < nodes.length; i++){
+      if (nodes[i].id== node.id){
+        node = nodes[i];
+        break;
+      }
+    }
+
+    Graph.centerAt(node.x, node.y, 1000);
+    Graph.zoom(8, 1000);
+
+    let desc = node.Description;
+    if (desc != ''){
+      desc += "<br>";
+    }
+    document.getElementById('description').innerHTML = "<b>" + node.Name + "</b><br>" + desc + "<a href='"+node.URL+"' target='_blank'>Reference Link</a><br>Information last updated: " + node['Last Updated'].split('T')[0];
+    document.getElementById('description').style.display = 'block';
+    document.getElementById('description').style.position = 'absolute';
+    currentNode = node;
+    currentType = 0;
+    num_anim_frames = max_anim_frames;
+  }
+
+  function focus_on_link(link){
+    // Center/zoom on node
+    var midpoint = ([x1, y1], [x2, y2]) => [(x1 + x2) / 2, (y1 + y2) / 2];
+    var pnt = midpoint([link.source.x, link.source.y], [link.target.x, link.target.y]);
+    Graph.centerAt(pnt[0], pnt[1], 1000);
+    Graph.zoom(8, 2000);
+    let desc = link.Description;
+    if (desc != ''){
+      desc += "<br>";
+    }
+    document.getElementById('description').innerHTML = "<b>" + link['E 1'] + "</b>, " + link.Current + " " + link.Type + " at <b>"+ link['E 2'] +"</b><br>" + desc + "<a href='"+link.URL+"' target='_blank'>Reference Link</a><br>Information last updated: " + link['Last Updated'].split('T')[0];
+    document.getElementById('description').style.display = 'block';
+    document.getElementById('description').style.position = 'absolute';
+    currentLink = link;
+    currentType = 1;
+    num_anim_frames = max_anim_frames;
+  }
+
+  var keys;
+  d3.json("https://raw.githubusercontent.com/aaronkarp123/aaronkarp123.github.io/master/Academic_Ties.json",function (fdata) {
+        keys=fdata['nodes'];
+        start();
+    });
+
+  //Call back for when user selects an option
+  function onSelect(d) {
+      focus_on_node(d);
+  }
+
+  //Setup and render the autocomplete
+  function start() {
+      var mc = autocomplete(document.getElementById('searchbar'))
+              .keys(keys)
+              .dataField('Name')
+              .placeHolder("Search Orgs, People, or Institutions - Start typing here")
+              .width(960)
+              .height(500)
+              .onSelected(onSelect)
+              .render();
+  }
+
 </script>
 </body>
