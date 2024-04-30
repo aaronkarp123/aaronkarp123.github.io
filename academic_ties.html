@@ -18,7 +18,7 @@
   <div id="formlink"  style="width:100%; height:5%; font-size: 15px; margin-left: 5%;position: absolute;
     top: 25px;
     left: 5%;
-    z-index: 99;">This site needs your help! Want to add a node or a connection, or make a correction? Please use <a href="https://www.google.com" target="_blank">this link</a>.</div>
+    z-index: 99;">This site needs your help! Want to add a node or a connection, or make a correction? Please use <a href="https://docs.google.com/forms/d/e/1FAIpQLSepG8c4_qG3UFRT4qvOPcP6jOvAma_er4IF_xJUtvIgnLtCcQ/viewform" target="_blank">this link</a>.</div>
 
 <div id="graph"></div>
   <div id="description" style="width:auto; max-width: 35%; height:auto; padding: 10px; box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset; display: none;">ASDASDDS</div>
@@ -32,6 +32,7 @@
   var currentType;
   var num_anim_frames = 0;
   var max_anim_frames = 250;
+  var num_loops = 0;
 
   window.mobileCheck = function() {
   let check = false;
@@ -43,6 +44,7 @@
 
   if (mobileCheck()){
     anim_frames = 100;
+    alert("Thank you for visiting. As this site is still a work in progress, I would strongly recommend switching to a computer for usability.");
   }
 
   fetch('https://raw.githubusercontent.com/aaronkarp123/aaronkarp123.github.io/master/Academic_Ties.json').then(res => res.json()).then(data => {
@@ -69,7 +71,7 @@
       .nodeLabel('Name')
       .nodeAutoColorBy('Type')
       .nodeVal('Value')
-      .cooldownTicks(50) 
+      .cooldownTicks(30) 
       .onBackgroundClick(clk=>{document.getElementById('description').style.display = 'none';})
       .linkDirectionalParticles(2)
       .linkDirectionalParticleWidth(1.4)
@@ -83,7 +85,7 @@
       .onLinkClick(link => {
         focus_on_link(link);
       })
-      .onEngineStop(() => {Graph.zoomToFit(800, 50); Graph.cooldownTicks(300);})
+      .onEngineStop(() => {Graph.zoomToFit(800, 50); Graph.cooldownTicks(50); if (num_loops < 1){Graph.d3ReheatSimulation();} num_loops += 1;})
       .onRenderFramePost(tck => {
         if (currentType == 0){
           var cur_coord = Graph.graph2ScreenCoords(currentNode.x, currentNode.y);
