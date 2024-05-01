@@ -62,9 +62,9 @@
   
   var anim_frames = 1000;
 
-  if (mobileCheck()){
+  if (mobileCheck() && isChrome){
     anim_frames = 100;
-    //alert("Thank you for visiting. As this site is still a work in progress, I would strongly recommend switching to a computer for usability.");
+    alert("Thank you for visiting. The site is a bit buggy on the *mobile chrome* browser, and I would strongly recommend switching to a computer or non-chrome browser for usability.");
   }
 
   fetch('https://raw.githubusercontent.com/aaronkarp123/aaronkarp123.github.io/master/Academic_Ties.json').then(res => res.json()).then(data => {
