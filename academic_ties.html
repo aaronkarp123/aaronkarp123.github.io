@@ -307,9 +307,9 @@
         }
         document.getElementById('sidebar').innerHTML = "<b>" + node.Name + "</b><br>" + desc + "<br>";
         for (let i = 0; i < node.URL.split(',').length; i++) {
-            document.getElementById('sidebar').innerHTML += "<a href='" + node.URL.split(',')[i] + "' target='_blank'>Reference Link</a>   ";
+            document.getElementById('sidebar').innerHTML += "<a href='" + node.URL.split(',')[i] + "' target='_blank'>Reference Link</a><br>";
         }
-        document.getElementById('sidebar').innerHTML += "<br><br>Information last updated: " + node['Last Updated'].split('T')[0];
+        document.getElementById('sidebar').innerHTML += "<br>Information last updated: " + node['Last Updated'].split('T')[0];
         currentNode = node;
         currentType = 0;
         num_anim_frames = max_anim_frames;
