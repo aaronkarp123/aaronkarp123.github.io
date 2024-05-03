@@ -50,7 +50,7 @@
 
     var anim_frames = 1000;
 
-    fetch('https://raw.githubusercontent.com/aaronkarp123/aaronkarp123.github.io/master/Academic_Ties.json').then(res => res.json()).then(data => {
+    fetch('https://raw.githubusercontent.com/aaronkarp123/aaronkarp123.github.io/master/academic_ties/Academic_Ties.json').then(res => res.json()).then(data => {
         const elem = document.getElementById('graph');
 
         console.log(window.innerWidth);
@@ -346,7 +346,7 @@
     }
 
     var keys;
-    d3.json("https://raw.githubusercontent.com/aaronkarp123/aaronkarp123.github.io/master/Academic_Ties.json", function(fdata) {
+    d3.json("https://raw.githubusercontent.com/aaronkarp123/aaronkarp123.github.io/master/academic_ties/Academic_Ties.json", function(fdata) {
         keys = fdata['nodes'];
         start();
     });
