@@ -171,12 +171,17 @@
 
 
                 var label = '';
-                if (node.id != currentNode.id) {
+
+                if (node.id != currentNode.id && currentType == 0) {
                     for (let i = 0; i < node.links.length; i++) {
                         if ((node.links[i].target.id == currentNode.id) || (node.links[i].source.id == currentNode.id)) {
                             label = '(' + node.links[i].Type + ')';
                         }
                     }
+                }
+
+                else if (currentType == 1) {
+                  // Look through links, and if they're equal to current link, use the node desc
                 }
 
                 const fontSize = 2;
