@@ -16,11 +16,11 @@ var sounds_year = ['2022',												'2020',												'2020',			'2019',			'20
 var sounds_folder = ['the_flock',										'4ways',											'read_write',	'kaze',		'givespace1',			'within', 			'tare', 									'traces', 						'introduction',		'restrained_form'];
 var sounds_link = ['',												    'https://oddegg.bandcamp.com/album/4-ways-to-get-home','',				'',				'',						'', 					'', 									'https://youtu.be/U1ws99j5U8Q',	'', 				''];
 
-var cs_name = ['Prying Ears: Master\'s Thesis',								'HaptEQ', 														'Audio-Only Editing',											'Github'];
-var cs_desc = ['A Critical Response to Mass Audio Surveillance',				'A collaborative tool for visually impaired audio producers', 	'An Approach to Audio-Only Editing for Visually Impaired Seniors','Open-source code'];
-var cs_year = ['2019',														'2017', 															'2016', 														''];
-var cs_folder = ['pryingears',												'hapteq', 														'aoe', 															'github'];
-var cs_link = ['files/KarpThesis.pdf',										'', 																'https://dl.acm.org/citation.cfm?id=2982196', 					'https://github.com/aaronkarp123'];
+var cs_name = ['PolarCV', 			'Prying Ears: Master\'s Thesis',								'HaptEQ', 														'Audio-Only Editing',											'Github'];
+var cs_desc = ['VCV Rack Module', 	'A Critical Response to Mass Audio Surveillance',				'A collaborative tool for visually impaired audio producers', 	'An Approach to Audio-Only Editing for Visually Impaired Seniors','Open-source code'];
+var cs_year = ['2022', 				'2019',														'2017', 															'2016', 														''];
+var cs_folder = ['polarcv', 		'pryingears',												'hapteq', 														'aoe', 															'github'];
+var cs_link = ['',					'files/KarpThesis.pdf',										'', 																'https://dl.acm.org/citation.cfm?id=2982196', 					'https://github.com/aaronkarp123'];
 
 var other_name = ['CV' 					];
 var other_desc = ['What I\'ve been up to'];
