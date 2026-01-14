@@ -11,4 +11,3 @@ var soundcloud_link = '';
 var images = [];
 
 var video = "https://www.youtube.com/embed/arOtxkbTRgg";
-

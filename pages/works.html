@@ -38,6 +38,8 @@
   
   <br>
 
+  <div id = "embedded_video_caption" style="padding-left: 10%; position:relative;">
+  </div>
   <div id = "embedded_video" style="padding-left: 50px; padding-right: 50px; position:relative; padding-top:56.25%; clear:both;">
   </div>
   <div id="pdf_viewer" style="padding-left: 10%; padding-right: 10%; padding-top: 15px; padding-bottom: 100px;"></div>
@@ -141,10 +143,12 @@ var load_data = function(){
 
     var embedded_video = document.getElementById('embedded_video');
     if (video != ''){
-      embedded_video.innerHTML =     '<iframe frameborder="0" allowfullscreen style="position:absolute;top:0;left:10%;width:100%;height:100%;"src=" ' + video + ' "></iframe>';
+      embedded_video.innerHTML =     '<iframe frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="position:absolute;top:0;left:10%;width:100%;height:100%;"src=" ' + video + ' "></iframe>';
+      embedded_video_caption.innerHTML = '<p>Direct link: <a href="' + video.replace("embed/", "").replace("www.youtube.com", "youtu.be") + '">youtube video</a></p><br>';
     }
     else{
       embedded_video.parentNode.removeChild(embedded_video);
+      embedded_video_caption.parentNode.removeChild(embedded_video_caption);
     }
 
     var pdf_viewer = document.getElementById("pdf_viewer");
