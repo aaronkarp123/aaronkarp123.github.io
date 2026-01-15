@@ -1,4 +1,4 @@
-var title = 'Aaron Karp';
+var title = 'Sophia Karp';
 
 /*var description = 'I\'m a sound artist, composer, and computer scientist currently living in Providence, Rhode Island. My primary artistic interest is exploring living systems in the myriad forms they can take.';
 description += ' A system can be anything from a single physical object to a collaborative musical performance to a piece of software. These systems can be living in their association with life and/or death. I\'ve investigated such systems, as well as questions of technology\'s ability to mediate or hinder human cooperation and coexistence, through the lenses of computer science research, music compositions, installation art pieces, and combinations of all three.'
